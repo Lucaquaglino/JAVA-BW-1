@@ -21,7 +21,7 @@ public class Punti_venditaDao {
 		e.begin();
 		em.persist(ev);
 		e.commit();
-		System.out.println("Pubblicazione salvata correttamente");
+		System.out.println("Punto vendita creato correttamente");
 	}
 
 //metodo find	
@@ -41,9 +41,9 @@ public class Punti_venditaDao {
 			t.begin();
 			em.remove(trova);
 			t.commit();
-			System.out.println("Pubblicazione eliminata con successo");
+			System.out.println("Punto vendita  eliminato con successo");
 		} else {
-			System.out.println("Pubblicazione non trovato");
+			System.out.println("Punto vendita  non trovato");
 		}
 	}
 

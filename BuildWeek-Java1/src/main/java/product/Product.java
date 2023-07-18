@@ -31,11 +31,11 @@ public abstract class Product {
 	private LocalDate expire;
 
 	@ManyToOne
-	@JoinColumn(name = "rivenditori_id", referencedColumnName = "shopId")
+	@JoinColumn(name = "fk_riv_Id", referencedColumnName = "rivenditori_Id")
 	private Rivenditori rivenditori;
 
 	@ManyToOne
-	@JoinColumn(name = "distributori_id", referencedColumnName = "shopId")
+	@JoinColumn(name = "fk_dis_Id", referencedColumnName = "distributori_Id")
 	private Distributori distributori;
 
 	public Product(LocalDate activation, LocalDate expire) {
