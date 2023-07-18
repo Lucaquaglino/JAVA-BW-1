@@ -30,6 +30,7 @@ import lombok.ToString;
 @ToString
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipo_mezzo")
+
 @NamedQuery(name = "tracciaPeriodiServizio", query = "SELECT p  FROM Servizio p INNER JOIN p.mezzo m WHERE m.id = :paramId")
 @NamedQuery(name = "ripetizioniTappa", query = "SELECT COUNT(t) FROM MezzoDiTrasporto m INNER JOIN m.tratta tr INNER JOIN tr.tappe t WHERE m.id = :paramMezzo AND t.zona.id = :paramTappa")
 public abstract class MezzoDiTrasporto {

@@ -1,5 +1,8 @@
 package dao;
 
+import java.time.LocalTime;
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
@@ -46,5 +49,13 @@ public class TrattaDAO {
 
 	public void refresh(Tratta tr) {
 		em.refresh(tr);
+	}
+
+	public LocalTime getTempoPercorrenza(Tratta tr) {
+		return LocalTime.of(tr.getTempoDiPercorrenza().getHours(), tr.getTempoDiPercorrenza().getMinutes());
+	}
+
+	public List<Tratta> getTratte() {
+		return em.createNamedQuery("all", Tratta.class).getResultList();
 	}
 }
