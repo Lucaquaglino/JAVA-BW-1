@@ -16,7 +16,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name="tappe", uniqueConstraints = { @UniqueConstraint(columnNames = { "zona_id", "tratta_id", "order" }) })
+@Table(name = "tappe", uniqueConstraints = { @UniqueConstraint(columnNames = { "zona_id", "tratta_id", "ordine" }) })
 @NoArgsConstructor
 @Getter
 @Setter
@@ -30,21 +30,21 @@ public class Tappa {
 	private Long id;
 	
 	@ManyToOne
-	@JoinColumn(name="zona_id")
+	@JoinColumn(name = "zona_id", referencedColumnName = "zona_id")
 	private Zona zona;
 	
 	@ManyToOne
-	@JoinColumn(name="tratta_id")
+	@JoinColumn(name = "tratta_id", referencedColumnName = "tratta_id")
 	private Tratta tratta;
 	
 	
-	private int order;
+	private int ordine;
 
-	public Tappa(Zona zona, Tratta tratta, int order) {
+	public Tappa(Zona zona, Tratta tratta, int ordine) {
 		super();
 		this.zona = zona;
 		this.tratta = tratta;
-		this.order = order;
+		this.ordine = ordine;
 	}
 	
 

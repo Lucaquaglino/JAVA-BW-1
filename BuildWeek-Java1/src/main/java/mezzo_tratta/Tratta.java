@@ -1,6 +1,6 @@
 package mezzo_tratta;
 
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import org.postgresql.util.PGInterval;
@@ -47,18 +48,19 @@ public class Tratta {
 	private Zona capolinea;
 
 	@OneToMany(mappedBy = "tratta", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
+	@OrderBy("ordine")
 	private Set<Tappa> tappe;
 
 	@Column(name = "arrival_time", columnDefinition = "TIME")
-	private LocalDateTime arrivalTime;
+	private LocalTime arrivalTime;
 
 	@Column(name = "start_time", columnDefinition = "TIME")
-	private LocalDateTime startTime;
+	private LocalTime startTime;
 
 	@Column(name = "t_percorrenza", columnDefinition = "INTERVAL")
 	private PGInterval tempoDiPercorrenza;
 
-	public Tratta(String nome, Zona partenza, Zona capolinea, LocalDateTime arrivalTime, LocalDateTime startTime,
+	public Tratta(String nome, Zona partenza, Zona capolinea, LocalTime arrivalTime, LocalTime startTime,
 			PGInterval tempoDiPercorrenza) {
 		super();
 		this.nome = nome;
