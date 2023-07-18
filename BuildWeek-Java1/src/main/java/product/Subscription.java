@@ -1,4 +1,4 @@
-package Product;
+package product;
 
 import java.time.LocalDate;
 
@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
-import Enum.Periodicy;
+import _enum.Periodicy;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

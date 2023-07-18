@@ -6,7 +6,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
-import entities.Tratta;
+import mezzo_tratta.Tratta;
 
 public class TrattaDAO {
 	private final EntityManager em;

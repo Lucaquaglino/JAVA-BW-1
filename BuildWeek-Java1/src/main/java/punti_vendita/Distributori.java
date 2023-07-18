@@ -1,4 +1,4 @@
-package Punti_vendita;
+package punti_vendita;
 
 import java.util.Set;
 
@@ -8,11 +8,11 @@ import javax.persistence.Enumerated;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import Enum.State;
-import Product.Product;
+import _enum.State;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import product.Product;
 
 @Entity
 @Table(name = "Distributori")

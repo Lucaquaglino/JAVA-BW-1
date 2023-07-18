@@ -1,4 +1,4 @@
-package Punti_vendita;
+package punti_vendita;
 
 import java.util.UUID;
 

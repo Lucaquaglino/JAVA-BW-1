@@ -6,13 +6,13 @@ import java.util.Scanner;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
-import Enum.State;
-import Product.Tiket;
-import Punti_vendita.Distributori;
+import _enum.State;
+import card_user.Card;
+import card_user.User;
 import dao.ProductDao;
 import dao.Punti_venditaDao;
-import card_User.Card;
-import card_User.User;
+import product.Tiket;
+import punti_vendita.Distributori;
 import utils.JpaUtil;
 
 public class Main {

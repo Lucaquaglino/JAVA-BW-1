@@ -1,4 +1,4 @@
-package entities;
+package mezzo_tratta;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

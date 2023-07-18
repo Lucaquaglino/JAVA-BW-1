@@ -1,4 +1,4 @@
-package entities;
+package mezzo_tratta;
 
 import java.util.Set;
 

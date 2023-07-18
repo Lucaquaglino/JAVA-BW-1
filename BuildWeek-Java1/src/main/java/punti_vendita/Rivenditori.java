@@ -1,4 +1,4 @@
-package Punti_vendita;
+package punti_vendita;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;

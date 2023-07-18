@@ -3,7 +3,7 @@ package dao;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
-import entities.Zona;
+import mezzo_tratta.Zona;
 
 public class ZonaDAO {
 	private final EntityManager em;

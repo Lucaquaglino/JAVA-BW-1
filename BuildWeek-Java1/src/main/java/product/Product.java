@@ -1,4 +1,4 @@
-package Product;
+package product;
 
 import java.time.LocalDate;
 
@@ -11,11 +11,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import Punti_vendita.Distributori;
-import Punti_vendita.Rivenditori;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import punti_vendita.Distributori;
+import punti_vendita.Rivenditori;
 
 @Entity
 @Table(name = "Product")

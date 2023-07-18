@@ -3,7 +3,7 @@ package dao;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
-import Product.Product;
+import product.Product;
 
 public class ProductDao {
 	private final EntityManager em;

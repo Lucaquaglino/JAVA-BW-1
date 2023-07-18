@@ -5,8 +5,8 @@ import java.util.UUID;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
-import Product.Product;
-import Punti_vendita.Punti_vendita;
+import product.Product;
+import punti_vendita.Punti_vendita;
 
 public class Punti_venditaDao {
 	private final EntityManager em;

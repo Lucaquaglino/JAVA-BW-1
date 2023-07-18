@@ -1,4 +1,4 @@
-package Enum;
+package _enum;
 
 public enum State {
 	ACTIVE, OUTOFSERVICE;

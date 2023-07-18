@@ -6,9 +6,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
-import entities.MezzoDiTrasporto;
-import entities.Servizio;
-import entities.Zona;
+import mezzo_tratta.MezzoDiTrasporto;
+import mezzo_tratta.Servizio;
+import mezzo_tratta.Zona;
 
 public class MezziDAO {
 	private final EntityManager em;
