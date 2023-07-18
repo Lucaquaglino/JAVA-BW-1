@@ -26,8 +26,8 @@ public class User {
 	private String surname;
 	private LocalDate birth;
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "user_card")
-	private Card cardId;
+	@JoinColumn(name = "cardId")
+	private Card card;
 	
 	public User(String _name, String _surname, LocalDate _birth) {
 		this.name = _name;
@@ -38,7 +38,6 @@ public class User {
 	@Override
 	public String toString() {
 		return "User --> [userId] = " + userId + ", [name] = " + name + ", [surname] = " + surname + ", [birth] = " + birth + ", [cardId] = "
-				+ cardId;
+				+ card;
 	}
-	
 }

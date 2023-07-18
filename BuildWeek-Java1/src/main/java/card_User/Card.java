@@ -16,24 +16,21 @@ public class Card {
 	@Id
 	@GeneratedValue
 	private UUID cardId;
-	private LocalDate activation;
-	private LocalDate expire;
+	private LocalDate activationDate;
+	private LocalDate expireDate;
 	private boolean isValid;
-	@OneToOne(mappedBy = "cardId")
-	private User userId;
+	@OneToOne(mappedBy = "card")
+	private User user;
 	
-	public Card(LocalDate _activation) {
-		this.activation = _activation;
+	public Card(LocalDate _activationDate) {
+		this.activationDate = _activationDate;
+		this.expireDate = activationDate.plusYears(1);
+		this.isValid = LocalDate.now().isAfter(this.expireDate) ? false : true;
 	}
 
 	@Override
 	public String toString() {
-		return "Card -> [cardId] = " + cardId + ", [activation] = " + activation + ", [expire] = " + expire + ", [isValid] = " + isValid
-				+ ", [userId] = " + userId;
+		return "Card -> [cardId] = " + cardId + ", [activationDate] = " + activationDate + ", [expireDate] = " + expireDate + ", [isValid] = " + isValid
+				+ ", [userId] = " + user;
 	}
-	
-	
-	
-	
-	
 }
