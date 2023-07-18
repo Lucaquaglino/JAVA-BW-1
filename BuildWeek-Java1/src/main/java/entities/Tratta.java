@@ -1,7 +1,9 @@
 package entities;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.postgresql.util.PGInterval;
@@ -40,6 +43,9 @@ public class Tratta {
 	@ManyToOne
 	@JoinColumn(name = "id_capolinea", referencedColumnName = "zona_id")
 	private Zona capolinea;
+
+	@OneToMany(mappedBy = "tratta", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
+	private Set<Tappa> tappe;
 
 	@Column(name = "arrival_time", columnDefinition = "TIME")
 	private LocalDateTime arrivalTime;
