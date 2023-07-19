@@ -1,5 +1,7 @@
 package mezzo_tratta;
 
+import java.time.Duration;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +12,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.TypeDef;
+
+import io.hypersistence.utils.hibernate.type.interval.PostgreSQLIntervalType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,7 +26,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-
+@TypeDef(typeClass = PostgreSQLIntervalType.class, defaultForType = Duration.class)
 public class Tappa {
 	
 	@Id
@@ -37,14 +42,17 @@ public class Tappa {
 	@JoinColumn(name = "tratta_id", referencedColumnName = "tratta_id")
 	private Tratta tratta;
 	
+	@Column(name = "t_percorrenza", columnDefinition = "INTERVAL")
+	private Duration tempoDiPercorrenza;
 	
 	private int ordine;
 
-	public Tappa(Zona zona, Tratta tratta, int ordine) {
+	public Tappa(Zona zona, Tratta tratta, int ordine, Duration tempoDiPercorrenza) {
 		super();
 		this.zona = zona;
 		this.tratta = tratta;
 		this.ordine = ordine;
+		this.tempoDiPercorrenza = tempoDiPercorrenza;
 	}
 	
 

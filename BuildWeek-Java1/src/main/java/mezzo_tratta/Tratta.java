@@ -33,6 +33,7 @@ import lombok.ToString;
 @Table(name = "tratte")
 @NamedQuery(name = "all", query = "SELECT tr FROM Tratta tr")
 @TypeDef(typeClass = PostgreSQLIntervalType.class, defaultForType = Duration.class)
+@NamedQuery(name = "tempoPerTratta", query = "SELECT SUM(t.tempoDiPercorrenza) FROM Tratta tr INNER JOIN tr.tappe t WHERE tr.id = :paramId GROUP BY tr")
 public class Tratta {
 
 	@Id
@@ -60,18 +61,19 @@ public class Tratta {
 	@Column(name = "start_time", columnDefinition = "TIME")
 	private LocalTime startTime;
 
-	@Column(name = "t_percorrenza", columnDefinition = "INTERVAL")
-	private Duration tempoDiPercorrenza;
+//	@Column(name = "t_percorrenza", columnDefinition = "INTERVAL")
+//	private Duration tempoDiPercorrenza;
 
 	public Tratta(String nome, Zona partenza, Zona capolinea, LocalTime arrivalTime, LocalTime startTime,
-			Duration tempoDiPercorrenza, Set<Tappa> tappe) {
+			// Duration tempoDiPercorrenza,
+			Set<Tappa> tappe) {
 		super();
 		this.nome = nome;
 		this.partenza = partenza;
 		this.capolinea = capolinea;
 		this.arrivalTime = arrivalTime;
 		this.startTime = startTime;
-		this.tempoDiPercorrenza = tempoDiPercorrenza;
+		// this.tempoDiPercorrenza = tempoDiPercorrenza;
 		tappe.forEach(t -> t.setTratta(this));
 		this.tappe = tappe;
 
