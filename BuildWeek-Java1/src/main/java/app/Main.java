@@ -7,7 +7,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
 import _enum.State;
-import dao.MezziDAO;
 import dao.ProductDao;
 import dao.Punti_venditaDao;
 import product.Tiket;
@@ -38,7 +37,7 @@ public class Main {
 
 		// instanziare distributori e tiket fine parte Andrea
 		try {
-			MezziDAO.salvaDatiGenerati(em);
+
 //			em.getTransaction().begin();
 //			em.persist(u1);
 //			em.persist(card1);
