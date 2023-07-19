@@ -8,6 +8,7 @@ import javax.persistence.EntityManagerFactory;
 
 import _enum.State;
 import card_user.Card;
+import card_user.CardUserDAO;
 import card_user.User;
 import dao.ProductDao;
 import dao.Punti_venditaDao;
@@ -20,37 +21,55 @@ public class Main {
 	public static void main(String[] args) {
 		EntityManagerFactory emf = JpaUtil.getEntityManagerFactory();
 		EntityManager em = emf.createEntityManager();
-		Punti_venditaDao pv = new Punti_venditaDao(em);
-		ProductDao pd = new ProductDao(em);
-		Scanner sc = new Scanner(System.in);
-// instanziare distributori e tiket inizio parte Andrea
-		Distributori ds = new Distributori("Venezia", State.OUTOFSERVICE);
-		pv.savePunti_vendita(ds);
-		Tiket tik1 = new Tiket(LocalDate.now().minusDays(5), LocalDate.now(), true, 20);
-		pv.emettiTiket(tik1);
 		
-//		User u1 = new User("Flavio", "MM", LocalDate.now());
-//		Card card1 = new Card(LocalDate.of(2022, 12,1));
+		CardUserDAO userCardOperation = new CardUserDAO(); 
+		User u1 = new User("Flavio", "Mammoliti", LocalDate.of(1989,05,19));
+		Card card1 = new Card(LocalDate.of(2022, 12,1));
 		
+		User u2 = new User("Andrea", "DepasQ", LocalDate.of(1994,03,22));
+		Card card2 = new Card(LocalDate.now());
+		
+		User u3 = new User("Luca", "Quaglino", LocalDate.of(1991,07,11));
+		Card card3 = new Card(LocalDate.of(2021, 11, 7));
+		
+		User u4 = new User("Marco", "DeNic", LocalDate.of(1988, 12, 25));
+		Card card4 = new Card(LocalDate.now()); 
+		
+		User u5 = new User("Flavio", "Gimmy", LocalDate.of(2001, 9, 17));
+		Card card5 = new Card(LocalDate.now()); 
 		
 		
 		
 		
 
-		// instanziare distributori e tiket fine parte Andrea
+		
 		try {
 			
-//			em.getTransaction().begin();
-//			em.persist(u1);
-//			em.persist(card1);
-//			em.getTransaction().commit();
-//			System.out.println(u1);
-//			System.out.println(card1);
+//			userCardOperation.saveUserCard(u1, card1);
+//			userCardOperation.saveUserCard(u2, card2);
+//			userCardOperation.saveUserCard(u3, card3);
+//			userCardOperation.saveUserCard(u4, card4);
+//			userCardOperation.saveUserCard(u5, card5);
+			
+//			userCardOperation.searchUserbyName("Flavio");
+//			userCardOperation.searchUserbySurname("Mammoliti");
+			
+			userCardOperation.searchUserbyName("Luca");
+			
+//			System.out.println();
+//			userCardOperation.cardRenewal(5242719475039L, LocalDate.now());
+//			System.out.println();
+//			
+			userCardOperation.searchCardByCardId(5242719475039L);
+			
+			
+			
+		
 
 		} finally {
 			em.close();
 			emf.close();
-			sc.close();
+			em.close();
 		}
 
 	}
