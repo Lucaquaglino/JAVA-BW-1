@@ -1,6 +1,7 @@
 package mezzo_tratta;
 
-import java.time.LocalDateTime;
+import java.time.Duration;
+import java.time.LocalTime;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -13,10 +14,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
-import org.postgresql.util.PGInterval;
+import org.hibernate.annotations.TypeDef;
 
+import io.hypersistence.utils.hibernate.type.interval.PostgreSQLIntervalType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -29,6 +32,7 @@ import lombok.ToString;
 @ToString
 @Table(name = "tratte")
 @NamedQuery(name = "all", query = "SELECT tr FROM Tratta tr")
+@TypeDef(typeClass = PostgreSQLIntervalType.class, defaultForType = Duration.class)
 public class Tratta {
 
 	@Id
@@ -47,19 +51,20 @@ public class Tratta {
 	private Zona capolinea;
 
 	@OneToMany(mappedBy = "tratta", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
+	@OrderBy("ordine")
 	private Set<Tappa> tappe;
 
 	@Column(name = "arrival_time", columnDefinition = "TIME")
-	private LocalDateTime arrivalTime;
+	private LocalTime arrivalTime;
 
 	@Column(name = "start_time", columnDefinition = "TIME")
-	private LocalDateTime startTime;
+	private LocalTime startTime;
 
 	@Column(name = "t_percorrenza", columnDefinition = "INTERVAL")
-	private PGInterval tempoDiPercorrenza;
+	private Duration tempoDiPercorrenza;
 
-	public Tratta(String nome, Zona partenza, Zona capolinea, LocalDateTime arrivalTime, LocalDateTime startTime,
-			PGInterval tempoDiPercorrenza) {
+	public Tratta(String nome, Zona partenza, Zona capolinea, LocalTime arrivalTime, LocalTime startTime,
+			Duration tempoDiPercorrenza, Set<Tappa> tappe) {
 		super();
 		this.nome = nome;
 		this.partenza = partenza;
@@ -67,6 +72,9 @@ public class Tratta {
 		this.arrivalTime = arrivalTime;
 		this.startTime = startTime;
 		this.tempoDiPercorrenza = tempoDiPercorrenza;
+		tappe.forEach(t -> t.setTratta(this));
+		this.tappe = tappe;
+
 	}
 
 }

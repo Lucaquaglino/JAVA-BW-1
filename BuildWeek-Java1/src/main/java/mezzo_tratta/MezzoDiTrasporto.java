@@ -2,6 +2,7 @@ package mezzo_tratta;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
@@ -49,7 +50,7 @@ public abstract class MezzoDiTrasporto {
 	@Column(columnDefinition = "INT2")
 	private Short capienza;
 
-	@OneToMany(mappedBy = "mezzo")
+	@OneToMany(mappedBy = "mezzo", cascade = CascadeType.ALL)
 	@OrderBy("dataInizio")
 	private Set<Servizio> servizi;
 
@@ -57,11 +58,13 @@ public abstract class MezzoDiTrasporto {
 	@JoinColumn(name = "tratta_id")
 	private Tratta tratta;
 
-	public MezzoDiTrasporto(String nome, String marca, Short capienza) {
+	public MezzoDiTrasporto(String nome, String marca, Short capienza, Tratta tratta) {
 		super();
 		this.nome = nome;
 		this.marca = marca;
 		this.capienza = capienza;
+		this.tratta = tratta;
 	}
+
 
 }

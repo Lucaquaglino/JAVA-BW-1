@@ -1,5 +1,8 @@
 package dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
@@ -46,5 +49,21 @@ public class ZonaDAO {
 
 	public void refresh(Zona z) {
 		em.refresh(z);
+	}
+
+	public static List<Zona> getDatiGenerati() {
+		List<Zona> zone = new ArrayList<Zona>();
+		zone.add(new Zona("Trastevere"));
+		zone.add(new Zona("Colosseo"));
+		zone.add(new Zona("Rebibbia"));
+		zone.add(new Zona("Conca d'oro"));
+		zone.add(new Zona("Piazza Bologna"));
+		zone.add(new Zona("Verano"));
+		zone.add(new Zona("Largo Argentino"));
+		zone.add(new Zona("Tuscolana"));
+		zone.add(new Zona("Termini"));
+		zone.add(new Zona("Tiburtina"));
+
+		return zone;
 	}
 }
