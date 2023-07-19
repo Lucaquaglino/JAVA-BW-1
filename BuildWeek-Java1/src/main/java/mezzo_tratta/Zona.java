@@ -28,7 +28,7 @@ public class Zona {
 	@Column(name = "zona_id")
 	private Long id;
 
-	@Column(length = 100)
+	@Column(length = 100, unique = true)
 	private String nome;
 
 	@OneToMany(mappedBy = "capolinea")

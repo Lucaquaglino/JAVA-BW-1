@@ -20,8 +20,8 @@ public class Tram extends MezzoDiTrasporto {
 	@Column(name = "numero_cabine", columnDefinition = "INT2")
 	private Short numeroCabine;
 
-	public Tram(String nome, String marca, Short capienza, Short numeroCabine) {
-		super(nome, marca, capienza);
+	public Tram(String nome, String marca, Short capienza, Short numeroCabine, Tratta tratta) {
+		super(nome, marca, capienza, tratta);
 		this.numeroCabine = numeroCabine;
 	}
 

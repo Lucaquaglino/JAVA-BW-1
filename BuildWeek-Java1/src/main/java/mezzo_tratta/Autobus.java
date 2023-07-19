@@ -20,8 +20,8 @@ public class Autobus extends MezzoDiTrasporto {
 	@Column(name = "numero_ruote", columnDefinition = "INT2")
 	private Short numeroRuote;
 
-	public Autobus(String nome, String marca, Short capienza, Short numeroRuote) {
-		super(nome, marca, capienza);
+	public Autobus(String nome, String marca, Short capienza, Short numeroRuote, Tratta tratta) {
+		super(nome, marca, capienza, tratta);
 		this.numeroRuote = numeroRuote;
 	}
 
