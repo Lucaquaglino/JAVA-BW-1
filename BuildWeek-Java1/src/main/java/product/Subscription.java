@@ -10,6 +10,7 @@ import _enum.Periodicy;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import punti_vendita.Punti_vendita;
 
 @Entity
 @Table(name = "Subscription")
@@ -20,16 +21,20 @@ public class Subscription extends Product {
 	@Enumerated
 	private Periodicy period;
 	private Boolean isActive;
+	private LocalDate expireDate;
+	private LocalDate activationDate;
 
-	public Subscription(LocalDate activation, LocalDate expire, Periodicy period, Boolean isActive) {
-		super(activation, expire);
+	public Subscription(LocalDate _activationDate, Punti_vendita pv, Periodicy period, Boolean isActive) {
+		super(pv);
+		this.activationDate = _activationDate;
 		this.period = period;
 		this.isActive = isActive;
-	}
+		if (period == Periodicy.WEEKLY) {
+			this.expireDate = _activationDate.plusWeeks(1);
+		} else {
+			this.expireDate = _activationDate.plusMonths(1);
+		}
 
-	@Override
-	public String toString() {
-		return "Subscription [period=" + period + ", isActive=" + isActive + "]";
 	}
 
 }

@@ -1,7 +1,5 @@
 package product;
 
-import java.time.LocalDate;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -14,8 +12,7 @@ import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import punti_vendita.Distributori;
-import punti_vendita.Rivenditori;
+import punti_vendita.Punti_vendita;
 
 @Entity
 @Table(name = "Product")
@@ -27,26 +24,18 @@ public abstract class Product {
 	@Id
 	@GeneratedValue
 	private long productId;
-	private LocalDate activation;
-	private LocalDate expire;
 
 	@ManyToOne
-	@JoinColumn(name = "fk_riv_Id", referencedColumnName = "rivenditori_Id")
-	private Rivenditori rivenditori;
+	@JoinColumn(name = "PV_Id", referencedColumnName = "shopId")
+	private Punti_vendita pv;
 
-	@ManyToOne
-	@JoinColumn(name = "fk_dis_Id", referencedColumnName = "distributori_Id")
-	private Distributori distributori;
-
-	public Product(LocalDate activation, LocalDate expire) {
-		super();
-		this.activation = activation;
-		this.expire = expire;
+	public Product(Punti_vendita pv) {
+		this.pv = pv;
 	}
 
 	@Override
 	public String toString() {
-		return "Product [productId=" + productId + ", activation=" + activation + ", expire=" + expire + "]";
+		return "Product [productId=" + productId + ", pv=" + pv + "]";
 	}
 
 }
