@@ -25,7 +25,7 @@ public class Subscription extends Product {
 	private LocalDate activationDate;
 
 	public Subscription(LocalDate _activationDate, Punti_vendita pv, Periodicy period, Boolean isActive) {
-		super(pv);
+		super();
 		this.activationDate = _activationDate;
 		this.period = period;
 		this.isActive = isActive;

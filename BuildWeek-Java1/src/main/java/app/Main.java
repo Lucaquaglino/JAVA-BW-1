@@ -26,18 +26,6 @@ public class Main {
 		EntityManagerFactory emf = JpaUtil.getEntityManagerFactory();
 		EntityManager em = emf.createEntityManager();
 		
-//		Punti_venditaDao pv = new Punti_venditaDao(em);
-//		ProductDao pd = new ProductDao(em);
-//		DistributoriDao ds = new DistributoriDao(em);
-//		RivenditoriDao rv = new RivenditoriDao(em);
-//		Scanner sc = new Scanner(System.in);
-//
-//		Distributori d = new Distributori("Milano", State.ACTIVE);
-//		ds.creaDistributore(d);
-//		Rivenditori r = new Rivenditori();
-//		rv.creaRivenditore(r);
-//		Subscription sub = new Subscription(LocalDate.now(), d, Periodicy.MONTHLY, true);
-//		pd.saveProduct(sub);
 		
 		
 		CardUserDAO userCardOperation = new CardUserDAO(); 
@@ -54,7 +42,17 @@ public class Main {
 		Card card4 = new Card(LocalDate.now()); 
 		
 		User u5 = new User("Flavio", "Gimmy", LocalDate.of(2001, 9, 17));
-		Card card5 = new Card(LocalDate.now()); 
+		Card card5 = new Card(LocalDate.now());
+		
+		
+		Punti_venditaDao shopsOperations = new Punti_venditaDao();
+		Distributori dist1 = new Distributori("Milano", State.ACTIVE);
+		Distributori dist2 = new Distributori("Torino", State.OUTOFSERVICE);
+		
+		Rivenditori shop1 = new Rivenditori("Roma");
+		Rivenditori shop2 = new Rivenditori("Forte dei Marmi");
+		
+		
 		
 		
 		
@@ -63,6 +61,19 @@ public class Main {
 		
 		try {
 			
+//			shopsOperations.savePunti_vendita(shop1);
+//			shopsOperations.savePunti_vendita(shop2);
+//			shopsOperations.savePunti_vendita(dist1);
+//			shopsOperations.savePunti_vendita(dist2);
+			
+			shopsOperations.findPunti_venditaById("42af8a5b-0b7f-48c7-80b4-bae627c6adbb");
+			System.out.println();
+			
+			
+			
+			System.out.println();
+			
+			shopsOperations.emettiTiket(shop2);
 //			userCardOperation.saveUserCard(u1, card1);
 //			userCardOperation.saveUserCard(u2, card2);
 //			userCardOperation.saveUserCard(u3, card3);

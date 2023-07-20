@@ -1,5 +1,9 @@
 package product;
 
+import java.time.LocalDate;
+import java.util.Random;
+import java.util.UUID;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -22,20 +26,15 @@ import punti_vendita.Punti_vendita;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Product {
 	@Id
-	@GeneratedValue
-	private long productId;
+	private long productId = 1_000_000_000_000l + new Random().nextLong(9_000_000_000_000l);
+	private LocalDate emissionDate = LocalDate.now();
 
 	@ManyToOne
-	@JoinColumn(name = "PV_Id", referencedColumnName = "shopId")
-	private Punti_vendita pv;
-
-	public Product(Punti_vendita pv) {
-		this.pv = pv;
-	}
+	@JoinColumn(name = "shop_id", referencedColumnName = "shopId")
+	private Punti_vendita shopId;
 
 	@Override
 	public String toString() {
-		return "Product [productId=" + productId + ", pv=" + pv + "]";
+		return "Product [productId=" + productId + ", emissionDate=" + emissionDate + ", shopId=" + shopId + "]";
 	}
-
 }

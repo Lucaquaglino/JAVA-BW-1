@@ -1,19 +1,21 @@
 package dao;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
 
 import product.Product;
+import product.Ticket;
 import punti_vendita.Punti_vendita;
 
 public class Punti_venditaDao {
-	private final EntityManager em;
+	EntityManagerFactory emf = Persistence.createEntityManagerFactory("BuildWeek-Java1");
+	EntityManager em = emf.createEntityManager();
 
-	public Punti_venditaDao(EntityManager em) {
-		this.em = em;
-	}
 //metodo save
 
 	public void savePunti_vendita(Punti_vendita ev) {
@@ -26,15 +28,21 @@ public class Punti_venditaDao {
 
 //metodo find	
 
-	public Punti_vendita findPunti_venditaById(UUID shopId) {
-
+	public Punti_vendita findPunti_venditaById(String strId) {
+		UUID shopId = UUID.fromString(strId);
 		Punti_vendita trova = em.find(Punti_vendita.class, shopId);
+		if (trova != null) {
+			System.out.println("Shop trovato con id: " + strId + " presso " + trova.getLocation());
+		} else {
+			System.out.println("Non esiste alcun shop con questo id: " + strId);
+		}
 		return trova;
 	}
 
 //metodo delete
 
-	public void findPunti_venditaByIdAndDelete(UUID shopId) {
+	public void findPunti_venditaByIdAndDelete(String shopStrId) {
+		UUID shopId = UUID.fromString(shopStrId);
 		Punti_vendita trova = em.find(Punti_vendita.class, shopId);
 		if (trova != null) {
 			EntityTransaction t = em.getTransaction();
@@ -47,17 +55,22 @@ public class Punti_venditaDao {
 		}
 	}
 
-	public void emettiTiket(Product tik) {
-		EntityTransaction e = em.getTransaction();
-		ProductDao pd = new ProductDao(em);
-		e.begin();
+	public void emettiTiket(String shopStrId) {
+		UUID shopId = UUID.fromString(shopStrId);
+		
+		Ticket ticket = new Ticket(LocalDate.now(), shopId);
+		ticket.setShopId(shopId);
+		System.out.println(ticket.getShopId());
+		
 		try {
-			em.persist(tik);
-			e.commit();
-			System.out.println("Tiket createo correttamente");
+			em.getTransaction().begin();
+			em.persist(ticket);
+			em.getTransaction().commit();
+			System.out.println("Tiket emesso correttamente con codice: " + ticket.getProductId());
 
-		} catch (Exception t) {
-			System.out.println("errore");
+		} catch (Exception e) {
+			em.getTransaction().rollback();
+			System.out.println("Errore avvenuto in fase emissione ticket " + e.getMessage());
 		}
 
 //		Tiket t = new Tiket(LocalDate.now().minusDays(5), LocalDate.now(), true, 15);

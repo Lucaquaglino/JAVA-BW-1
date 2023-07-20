@@ -21,7 +21,10 @@ public class Rivenditori extends Punti_vendita {
 
 	@Override
 	public String toString() {
-		return "Rivenditori []";
+		return "Rivenditori [toString()=" + super.toString() + ", getShopId()=" + getShopId() + ", getLocation()="
+				+ getLocation() + "]";
 	}
+
+	
 
 }
