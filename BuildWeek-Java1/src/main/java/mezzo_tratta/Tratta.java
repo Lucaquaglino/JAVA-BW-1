@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
@@ -60,6 +61,9 @@ public class Tratta {
 
 	@Column(name = "start_time", columnDefinition = "TIME")
 	private LocalTime startTime;
+
+	@OneToOne(mappedBy = "tratta")
+	private MezzoDiTrasporto mezzo;
 
 //	@Column(name = "t_percorrenza", columnDefinition = "INTERVAL")
 //	private Duration tempoDiPercorrenza;
