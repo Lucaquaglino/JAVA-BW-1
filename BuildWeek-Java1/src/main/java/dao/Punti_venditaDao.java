@@ -8,8 +8,10 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
+import _enum.State;
 import product.Product;
 import product.Ticket;
+import punti_vendita.Distributori;
 import punti_vendita.Punti_vendita;
 
 public class Punti_venditaDao {
@@ -56,29 +58,40 @@ public class Punti_venditaDao {
 	}
 
 	public void emettiTiket(String shopStrId) {
-		UUID shopId = UUID.fromString(shopStrId);
-		
-		Ticket ticket = new Ticket(LocalDate.now(), shopId);
-		ticket.setShopId(shopId);
-		System.out.println(ticket.getShopId());
-		
-		try {
-			em.getTransaction().begin();
-			em.persist(ticket);
-			em.getTransaction().commit();
-			System.out.println("Tiket emesso correttamente con codice: " + ticket.getProductId());
+	    UUID shopId = UUID.fromString(shopStrId);
+	    Punti_vendita shop = em.find(Punti_vendita.class, shopId);
 
-		} catch (Exception e) {
-			em.getTransaction().rollback();
-			System.out.println("Errore avvenuto in fase emissione ticket " + e.getMessage());
-		}
-
-//		Tiket t = new Tiket(LocalDate.now().minusDays(5), LocalDate.now(), true, 15);
-//		pd.saveProduct(t);
-//		if (t != null) {
-//			System.out.println("operazione conclusa");
-//		}
-
+	    try {
+	        if (shop != null) {
+	            if (shop instanceof Distributori) {
+	                Distributori distributor = (Distributori) shop;
+	                if (distributor.getState() == State.OUTOFSERVICE) {
+	                	System.out.println("Impossibile emettere il ticket. Lo shop non è attivo.");
+	                }
+	                else {
+		            	 Ticket ticket = new Ticket();
+		            	 ticket.setShopId(shop);
+		            	 em.getTransaction().begin();
+		            	 em.persist(ticket);
+		            	 em.getTransaction().commit();
+		            	 System.out.println("Ticket emesso correttamente con codice: " + ticket.getProductId());
+	                }
+	             } else {
+	            	 Ticket ticket = new Ticket();
+	            	 ticket.setShopId(shop);
+	            	 em.getTransaction().begin();
+	            	 em.persist(ticket);
+	            	 em.getTransaction().commit();
+	            	 System.out.println("Ticket emesso correttamente con codice: " + ticket.getProductId());
+	             }
+	            
+	        } else {
+	            System.out.println("Nessun punto vendita trovato con questo ID: " + shopStrId);
+	        }
+	    } catch (Exception e) {
+	        em.getTransaction().rollback();
+	        System.out.println("Errore avvenuto in fase emissione ticket " + e.getMessage());
+	    }
 	}
 
 //	public Pubblicazione trovaPerIsbn(UUID isbn) {

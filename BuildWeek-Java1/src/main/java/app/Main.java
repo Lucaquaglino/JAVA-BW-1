@@ -66,14 +66,10 @@ public class Main {
 //			shopsOperations.savePunti_vendita(dist1);
 //			shopsOperations.savePunti_vendita(dist2);
 			
-			shopsOperations.findPunti_venditaById("42af8a5b-0b7f-48c7-80b4-bae627c6adbb");
-			System.out.println();
-			
-			
 			
 			System.out.println();
 			
-			shopsOperations.emettiTiket(shop2);
+			shopsOperations.emettiTiket("743a8275-6228-4fab-a150-10eff6a70f8b");
 //			userCardOperation.saveUserCard(u1, card1);
 //			userCardOperation.saveUserCard(u2, card2);
 //			userCardOperation.saveUserCard(u3, card3);

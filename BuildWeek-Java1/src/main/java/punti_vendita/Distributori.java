@@ -26,7 +26,7 @@ public class Distributori extends Punti_vendita {
 
 	@Override
 	public String toString() {
-		return "Distributori [state=" + state + "]";
+		return "Distributore di " + getLocation() + " con id: [" + super.getShopId() + "] è in stato: " + getState();
 	}
 
 }

@@ -22,23 +22,10 @@ public class Ticket extends Product {
 	
 	//@JoinColumn
 	long veichleId;
-	
-	public Ticket(LocalDate emissionDate, UUID shopId) {
-		super();
-		this.emission = emissionDate;
-		
-	}
 
 
 	@Override
 	public String toString() {
 		return "Tiket [" + getProductId() + "] isUsed = " + isUsed + "]";
 	}
-
-	public void setShopId(UUID shopId) {
-		
-	}
-	
-	
-
 }
