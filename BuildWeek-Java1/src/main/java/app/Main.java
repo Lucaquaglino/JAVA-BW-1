@@ -8,10 +8,10 @@ import javax.persistence.EntityManagerFactory;
 
 import _enum.Periodicy;
 import _enum.State;
-import dao.DistributoriDao;
 import card_user.Card;
 import card_user.CardUserDAO;
 import card_user.User;
+import dao.DistributoriDao;
 import dao.ProductDao;
 import dao.Punti_venditaDao;
 import dao.RivenditoriDao;
@@ -37,7 +37,7 @@ public class Main {
 //		rv.creaRivenditore(r);
 		Subscription sub = new Subscription(LocalDate.now(), d, Periodicy.MONTHLY, true);
 		pd.saveProduct(sub);
-		try {
+		// try {
 		
 		CardUserDAO userCardOperation = new CardUserDAO(); 
 		User u1 = new User("Flavio", "Mammoliti", LocalDate.of(1989,05,19));
@@ -92,3 +92,4 @@ public class Main {
 	}
 
 }
+
