@@ -2,15 +2,19 @@ package product;
 
 import java.time.LocalDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import _enum.Periodicy;
+import card_user.Card;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import punti_vendita.Punti_vendita;
 
 @Entity
 @Table(name = "Subscription")
@@ -18,21 +22,23 @@ import punti_vendita.Punti_vendita;
 @Setter
 @NoArgsConstructor
 public class Subscription extends Product {
-	@Enumerated
+	@Enumerated(EnumType.STRING)
 	private Periodicy period;
 	private Boolean isActive;
 	private LocalDate expireDate;
-	private LocalDate activationDate;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(referencedColumnName = "cardId")
+	private Card cardId;
 
-	public Subscription(LocalDate _activationDate, Punti_vendita pv, Periodicy period, Boolean isActive) {
+
+	public Subscription(Periodicy period) {
 		super();
-		this.activationDate = _activationDate;
 		this.period = period;
-		this.isActive = isActive;
 		if (period == Periodicy.WEEKLY) {
-			this.expireDate = _activationDate.plusWeeks(1);
+			this.expireDate = getEmissionDate().plusWeeks(1);
 		} else {
-			this.expireDate = _activationDate.plusMonths(1);
+			this.expireDate = getEmissionDate().plusMonths(1);
 		}
 
 	}

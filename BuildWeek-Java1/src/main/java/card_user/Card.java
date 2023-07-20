@@ -11,6 +11,7 @@ import javax.persistence.OneToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import product.Subscription;
 
 @Getter
 @Setter
@@ -25,6 +26,9 @@ public class Card {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(referencedColumnName = "userId")
 	private User user;
+	
+	@OneToOne
+	private Subscription subscription;
 	
 	public Card(LocalDate _activationDate) {
 		this.activationDate = _activationDate;

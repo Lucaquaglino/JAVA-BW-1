@@ -8,8 +8,11 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
+import _enum.Periodicy;
 import _enum.State;
+import card_user.Card;
 import product.Product;
+import product.Subscription;
 import product.Ticket;
 import punti_vendita.Distributori;
 import punti_vendita.Punti_vendita;
@@ -56,8 +59,9 @@ public class Punti_venditaDao {
 			System.out.println("Punto vendita  non trovato");
 		}
 	}
-
-	public void emettiTiket(String shopStrId) {
+	
+//EMETTI TICKET
+	public void emettiTicket(String shopStrId) {
 	    UUID shopId = UUID.fromString(shopStrId);
 	    Punti_vendita shop = em.find(Punti_vendita.class, shopId);
 
@@ -93,31 +97,59 @@ public class Punti_venditaDao {
 	        System.out.println("Errore avvenuto in fase emissione ticket " + e.getMessage());
 	    }
 	}
+	
+//EMETTI ABBONAMENTO
+	public void emettiSubscription(String shopStrId, long cardId, Periodicy periodicity) {
+	    UUID shopId = UUID.fromString(shopStrId);
+	    Punti_vendita shop = em.find(Punti_vendita.class, shopId);
+	    
+	    Card card = em.find(Card.class, cardId);
+	    
+	    System.out.println(shop);
+	    System.out.println(card);
 
-//	public Pubblicazione trovaPerIsbn(UUID isbn) {
-//		TypedQuery<Pubblicazione> query = em.createQuery("SELECT e FROM Pubblicazione e WHERE e.isbn = :isbn",
-//				Pubblicazione.class);
-//		query.setParameter("isbn", isbn);
-//		return query.getSingleResult();
-//	}
-//
-//	public Set<Pubblicazione> trovaPerAnnoPubblicazione(LocalDate anno) {
-//		TypedQuery<Pubblicazione> query = em
-//				.createQuery("SELECT e FROM Pubblicazione e WHERE e.annoPubblicazione = :anno", Pubblicazione.class);
-//		query.setParameter("anno", anno);
-//		return (Set<Pubblicazione>) query.getResultList();
-//	}
-//
-//	public Set<Libro> trovaPerAutore(String autore) {
-//		TypedQuery<Libro> query = em.createQuery("SELECT l FROM Libro l WHERE l.autore = :autore", Libro.class);
-//		query.setParameter("autore", autore);
-//		return (Set<Libro>) query.getResultList();
-//	}
-//
-//	public Set<Pubblicazione> trovaPerTitolo(String titolo) {
-//		TypedQuery<Pubblicazione> query = em.createQuery("SELECT e FROM Pubblicazione e WHERE e.titolo LIKE :titolo",
-//				Pubblicazione.class);
-//		query.setParameter("titolo", "%" + titolo + "%");
-//		return (Set<Pubblicazione>) query.getResultList();
-//	}
+	    try {
+	        if (shop != null && card !=null) {
+	            if (shop instanceof Distributori) {
+	                Distributori distributor = (Distributori) shop;
+	                //----
+	                if (distributor.getState() == State.OUTOFSERVICE) {
+	                	System.out.println("Impossibile effettuare l'ammonamento. Lo shop non è attivo.");
+	                }
+	                else {
+	                	if(card.isValid()) {
+	                		Subscription sub = new Subscription(periodicity);
+	                		sub.setShopId(shop);
+	                		sub.setCardId(card);
+	                		em.getTransaction().begin();
+	                		em.persist(sub);
+	                		em.getTransaction().commit();
+	                		System.out.println("L'abbonamneto è stato emesso correttamente con codice: " + sub.getProductId());
+	                	} else {
+	                		System.out.println("La tua card non è attiva, devi rinnovarla");
+	                	}
+	                }
+	                //----
+	             } else {
+	            	 if(card.isValid()) {
+	                		Subscription sub = new Subscription(periodicity);
+	                		sub.setShopId(shop);
+	                		sub.setCardId(card);
+	                		em.getTransaction().begin();
+	                		em.persist(sub);
+	                		em.getTransaction().commit();
+	                		System.out.println("L'abbonamneto è stato emesso correttamente con codice: " + sub.getProductId());
+	                	} else {
+	                		System.out.println("La tua card non è attiva, devi rinnovarla");
+	                	}
+	             }
+	            
+	        } else {
+	            System.out.println("Nessun punto vendita trovato con questo ID: " + shopStrId);
+	        }
+	    } catch (Exception e) {
+	        em.getTransaction().rollback();
+	        System.out.println("Errore avvenuto in fase salvataggio abbonamento " + e.getMessage());
+	    }
+	}
 }

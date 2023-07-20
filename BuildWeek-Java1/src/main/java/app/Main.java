@@ -8,14 +8,10 @@ import javax.persistence.EntityManagerFactory;
 
 import _enum.Periodicy;
 import _enum.State;
-import dao.DistributoriDao;
 import card_user.Card;
 import card_user.CardUserDAO;
 import card_user.User;
-import dao.ProductDao;
 import dao.Punti_venditaDao;
-import dao.RivenditoriDao;
-import product.Subscription;
 import punti_vendita.Distributori;
 import punti_vendita.Rivenditori;
 import utils.JpaUtil;
@@ -67,9 +63,13 @@ public class Main {
 //			shopsOperations.savePunti_vendita(dist2);
 			
 			
-			System.out.println();
+	
 			
-			shopsOperations.emettiTiket("743a8275-6228-4fab-a150-10eff6a70f8b");
+//			shopsOperations.emettiTicket("5b3e9f53-7b6a-4e43-960a-d556514260be");
+//			shopsOperations.emettiTicket("df341eab-b8ce-476f-97d9-e5ce9eeb1bd6");
+			
+			shopsOperations.emettiSubscription("d24aed9c-4267-445d-8e82-0f10d2851582", 5718993859311L, Periodicy.WEEKLY);
+			
 //			userCardOperation.saveUserCard(u1, card1);
 //			userCardOperation.saveUserCard(u2, card2);
 //			userCardOperation.saveUserCard(u3, card3);
