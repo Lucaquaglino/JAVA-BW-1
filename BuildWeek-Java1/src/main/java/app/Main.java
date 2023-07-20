@@ -25,19 +25,20 @@ public class Main {
 	public static void main(String[] args) {
 		EntityManagerFactory emf = JpaUtil.getEntityManagerFactory();
 		EntityManager em = emf.createEntityManager();
-		Punti_venditaDao pv = new Punti_venditaDao(em);
-		ProductDao pd = new ProductDao(em);
-		DistributoriDao ds = new DistributoriDao(em);
-		RivenditoriDao rv = new RivenditoriDao(em);
-		Scanner sc = new Scanner(System.in);
-
-		Distributori d = new Distributori("Milano", State.ACTIVE);
-		ds.creaDistributore(d);
-		Rivenditori r = new Rivenditori();
+		
+//		Punti_venditaDao pv = new Punti_venditaDao(em);
+//		ProductDao pd = new ProductDao(em);
+//		DistributoriDao ds = new DistributoriDao(em);
+//		RivenditoriDao rv = new RivenditoriDao(em);
+//		Scanner sc = new Scanner(System.in);
+//
+//		Distributori d = new Distributori("Milano", State.ACTIVE);
+//		ds.creaDistributore(d);
+//		Rivenditori r = new Rivenditori();
 //		rv.creaRivenditore(r);
-		Subscription sub = new Subscription(LocalDate.now(), d, Periodicy.MONTHLY, true);
-		pd.saveProduct(sub);
-		try {
+//		Subscription sub = new Subscription(LocalDate.now(), d, Periodicy.MONTHLY, true);
+//		pd.saveProduct(sub);
+		
 		
 		CardUserDAO userCardOperation = new CardUserDAO(); 
 		User u1 = new User("Flavio", "Mammoliti", LocalDate.of(1989,05,19));
@@ -71,13 +72,16 @@ public class Main {
 //			userCardOperation.searchUserbyName("Flavio");
 //			userCardOperation.searchUserbySurname("Mammoliti");
 			
-			userCardOperation.searchUserbyName("Luca");
-			
+//			userCardOperation.searchUserbyName("Luca");
 //			System.out.println();
-//			userCardOperation.cardRenewal(5242719475039L, LocalDate.now());
-//			System.out.println();
+//			userCardOperation.searchCardByCardId(8371018202084L);
 //			
-			userCardOperation.searchCardByCardId(5242719475039L);
+//			System.out.println();
+//			userCardOperation.cardRenewal(8371018202084L, LocalDate.now());
+//			System.out.println();
+////			
+//			userCardOperation.searchCardByCardId(8371018202084L);
+//			userCardOperation.removeUserById("ba5ca93c-9c97-43cd-89e9-193724032d94");
 			
 			
 			
@@ -89,6 +93,7 @@ public class Main {
 			em.close();
 		}
 
-	}
-
+	} 
 }
+
+

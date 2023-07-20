@@ -2,6 +2,8 @@ package card_user;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -82,6 +84,28 @@ public class CardUserDAO {
 					System.out.println(e.getStackTrace() + " Errore in fase di ricerca");
 				}
 			}
+			
+		// RIMUOVI utente by UUID  ------------------------------------------------------------
+			
+			public void removeUserById(String id) {
+				
+				UUID userId = UUID.fromString(id);
+				try {
+					User user = em.find(User.class, userId);
+					
+					if (user != null) {
+						em.getTransaction().begin();
+						em.remove(user);
+						em.getTransaction().commit();
+						System.out.println("Utente: [" + userId + "] " + user.getName() + " " + user.getSurname() + " è stato rimosso correttamente");
+					} else {
+						System.out.println("Nessun utente è stato trovato con questo id: " + userId);
+					}
+					
+				} catch(Exception e) {
+					System.out.println("Errore in fase di rimozione dell'utente" + e.getStackTrace());
+				}
+			}
 	
 		// RINNOVA la scadenza della CARD  ------------------------------------------------------------
 			
@@ -104,5 +128,5 @@ public class CardUserDAO {
 			        System.out.println(e.getMessage() + " Errore in fase di ricerca");
 			    }
 			}
-
+		
 }
