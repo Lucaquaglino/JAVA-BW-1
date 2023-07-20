@@ -17,7 +17,7 @@ import card_user.Card;
 import card_user.CardUserDAO;
 import card_user.User;
 import dao.Punti_venditaDao;
-import product.Tiket;
+import product.Ticket;
 import punti_vendita.Distributori;
 import punti_vendita.Punti_vendita;
 import punti_vendita.Rivenditori;
@@ -88,9 +88,9 @@ public class UtentiEBiglietteriaInteraction {
 		System.out.println("Inserisci data fine periodo");
 		LocalDate fine = selectDate();
 
-		TypedQuery<Tiket> q = em.createQuery(
+		TypedQuery<Ticket> q = em.createQuery(
 				"SELECT t FROM Tiket t WHERE t.pv.shopId = :paramId AND t.emission BEETWEEN :paramInizio AND :paramFine",
-				Tiket.class);
+				Ticket.class);
 		q.setParameter("paramId", pv.getShopId());
 		q.setParameter("paramInizio", inizio);
 		q.setParameter("paramFine", fine);
