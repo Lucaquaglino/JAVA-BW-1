@@ -8,7 +8,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
-import product.Product;
 import product.Ticket;
 import punti_vendita.Punti_vendita;
 
@@ -55,18 +54,17 @@ public class Punti_venditaDao {
 		}
 	}
 
-	public void emettiTiket(String shopStrId) {
-		UUID shopId = UUID.fromString(shopStrId);
-		
-		Ticket ticket = new Ticket(LocalDate.now(), shopId);
-		ticket.setShopId(shopId);
-		System.out.println(ticket.getShopId());
-		
+	public void emettiTiket(Punti_vendita shop) {
+		Ticket ticket = new Ticket(LocalDate.now(), shop);
+
 		try {
 			em.getTransaction().begin();
 			em.persist(ticket);
 			em.getTransaction().commit();
 			System.out.println("Tiket emesso correttamente con codice: " + ticket.getProductId());
+
+			// Visualizza l'ID del distributore o rivenditore
+			System.out.println("ID del distributore o rivenditore: " + ticket.getShop().getShopId());
 
 		} catch (Exception e) {
 			em.getTransaction().rollback();

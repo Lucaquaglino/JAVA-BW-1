@@ -1,10 +1,8 @@
 package product;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -19,26 +17,20 @@ import punti_vendita.Punti_vendita;
 @NoArgsConstructor
 public class Ticket extends Product {
 	private Boolean isUsed = false;
-	
-	//@JoinColumn
+	private LocalDate date;
+	private Punti_vendita shop;
+	// @JoinColumn
 	long veichleId;
-	
-	public Ticket(LocalDate emissionDate, UUID shopId) {
-		super();
-		this.emission = emissionDate;
-		
-	}
 
+	public Ticket(LocalDate date, Punti_vendita shop) {
+		super();
+		this.date = date;
+		this.shop = shop;
+	}
 
 	@Override
 	public String toString() {
 		return "Tiket [" + getProductId() + "] isUsed = " + isUsed + "]";
 	}
-
-	public void setShopId(UUID shopId) {
-		
-	}
-	
-	
 
 }

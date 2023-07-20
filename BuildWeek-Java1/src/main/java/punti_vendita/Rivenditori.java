@@ -1,5 +1,7 @@
 package punti_vendita;
 
+import java.util.UUID;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -20,11 +22,14 @@ public class Rivenditori extends Punti_vendita {
 	}
 
 	@Override
+	public UUID getShopId() {
+		return super.getShopId();
+	}
+
+	@Override
 	public String toString() {
 		return "Rivenditori [toString()=" + super.toString() + ", getShopId()=" + getShopId() + ", getLocation()="
 				+ getLocation() + "]";
 	}
-
-	
 
 }
