@@ -2,10 +2,8 @@ package product;
 
 import java.time.LocalDate;
 import java.util.Random;
-import java.util.UUID;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -30,11 +28,11 @@ public abstract class Product {
 	private LocalDate emissionDate = LocalDate.now();
 
 	@ManyToOne
-	@JoinColumn(name = "shop_id", referencedColumnName = "shopId")
-	private Punti_vendita shopId;
+	@JoinColumn(name = "shop_id")
+	private Punti_vendita shop;
 
 	@Override
 	public String toString() {
-		return "Product [productId=" + productId + ", emissionDate=" + emissionDate + ", shopId=" + shopId + "]";
+		return "Product [productId=" + productId + ", emissionDate=" + emissionDate + ", shopId=" + "]";
 	}
 }

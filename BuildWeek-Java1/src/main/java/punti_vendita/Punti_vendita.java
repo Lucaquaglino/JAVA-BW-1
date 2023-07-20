@@ -28,7 +28,7 @@ public abstract class Punti_vendita {
 	private UUID shopId;
 	private String location;
 
-	@OneToMany(mappedBy = "shopId")
+	@OneToMany(mappedBy = "shop")
 	private Set<Product> products;
 
 	@Override
@@ -40,5 +40,5 @@ public abstract class Punti_vendita {
 		super();
 		this.location = location;
 	}
-	
+
 }
