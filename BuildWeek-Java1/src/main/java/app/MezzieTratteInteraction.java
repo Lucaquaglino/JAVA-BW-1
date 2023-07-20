@@ -1,6 +1,7 @@
 package app;
 
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 import java.util.LinkedList;
@@ -17,6 +18,8 @@ import dao.MezziDAO;
 import dao.TrattaDAO;
 import mezzo_tratta.Autobus;
 import mezzo_tratta.MezzoDiTrasporto;
+import mezzo_tratta.Servizio;
+import mezzo_tratta.StatoMezzo;
 import mezzo_tratta.Tappa;
 import mezzo_tratta.Tram;
 import mezzo_tratta.Tratta;
@@ -252,9 +255,10 @@ public class MezzieTratteInteraction {
 				Inserisci:
 				1 per aggiungere nuovo mezzo
 				2 per rimuovere mezzo esistente
+				3 per gestione servizio
 				""";
 		System.out.println(elenco);
-		int num = selectNumero(sc, 2);
+		int num = selectNumero(sc, 3);
 		switch (num) {
 		case 1:
 			aggiungiMezzo();
@@ -262,9 +266,104 @@ public class MezzieTratteInteraction {
 		case 2:
 			rimuoviMezzo();
 			break;
+		case 3:
+			gestioneServizio();
+			break;
 		default:
 			System.out.println("Errore riprovare.");
 		}
+	}
+
+	private void gestioneServizio() {
+		String output = """
+				Inserisci
+				1 per aggiungi servizio
+				2 per rimuovi servizio
+				""";
+		System.out.println(output);
+		int num = selectNumero(sc, 2);
+		switch (num) {
+		case 1:
+			aggiungiServ();
+			break;
+		case 2:
+			rimuoviServ();
+			break;
+
+		default:
+			System.out.println("Errore riprovare.");
+		}
+	}
+
+	private LocalDate selectDate() {
+		try {
+			return LocalDate.parse(sc.nextLine());
+		} catch (DateTimeParseException e) {
+			System.out.println("Valore immesso non valido riprovare.");
+			return selectDate();
+		}
+	}
+
+	private MezzoDiTrasporto selectMezzo() {
+		List<MezzoDiTrasporto> lista = em.createQuery("SELECT m FROM MezzoDiTrasporto m", MezzoDiTrasporto.class)
+				.getResultList();
+		System.out.println("Selezionare lemento da rimuovere.");
+		String output2 = lista.stream().map(m -> 1 + lista.indexOf(m) + " per " + m.getNome())
+				.collect(Collectors.joining("\n"));
+		System.out.println(output2);
+		int input = selectNumero(sc, lista.size());
+		MezzoDiTrasporto m = lista.get(--input);
+		return m;
+	}
+
+	private void rimuoviServ() {
+		MezzoDiTrasporto m = selectMezzo();
+		TypedQuery<Servizio> q = em.createQuery("SELECT s FROM Servizio s WHERE s.mezzo.id = :param", Servizio.class);
+		q.setParameter("param", m.getId());
+		List<Servizio> lista = q.getResultList();
+		String output = lista.stream().map(s -> 1 + lista.indexOf(s) + " per " + s).collect(Collectors.joining("\n"));
+		System.out.println("Seleziona servizio");
+		System.out.println(output);
+		int num = selectNumero(sc, lista.size());
+		Servizio s = lista.get(--num);
+		MezziDAO dao = new MezziDAO(em);
+		dao.delete(s);
+		System.out.println("Servizio rimosso con successo.");
+	}
+
+	private void aggiungiServ() {
+
+		MezzoDiTrasporto m = selectMezzo();
+		System.out.println("Inserire data inizio in formato aaaa-mm-gg");
+		LocalDate inizio = selectDate();
+
+		System.out.println("Inserire data fine in formato aaaa-mm-gg");
+		LocalDate fine = selectDate();
+
+		String output = """
+				Inserisci
+				1 per manutenzione
+				2 per in servizio
+				""";
+		System.out.println(output);
+		int num = selectNumero(sc, 2);
+		Servizio s;
+		switch (num) {
+		case 1:
+			s = new Servizio(StatoMezzo.IN_MANUTENZIONE, inizio, m);
+
+			break;
+		case 2:
+			s = new Servizio(StatoMezzo.IN_SERVIZIO, inizio, m);
+			break;
+		default:
+			throw new IllegalStateException("Errore nel codice");
+		}
+		s.setDataFine(fine);
+
+		MezziDAO dao = new MezziDAO(em);
+		dao.save(s);
+		System.out.println("Servizio salvato correttamente");
 	}
 
 	public void infoMezzi() {
