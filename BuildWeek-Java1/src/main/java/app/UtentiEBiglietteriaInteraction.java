@@ -101,6 +101,39 @@ public class UtentiEBiglietteriaInteraction extends ConsoleInteraction {
 				+ fine.format(fm) + "\n risultano: " + result);
 	}
 
+<<<<<<< Updated upstream
+=======
+	private void tracciaBigliettiPerMT() {
+		List<MezzoDiTrasporto> lista = em.createQuery("SELECT m FROM MezzoDiTrasporto m", MezzoDiTrasporto.class)
+				.getResultList();
+		System.out.println("Selezionare lemento da rimuovere.");
+		String output2 = lista.stream().map(m -> 1 + lista.indexOf(m) + " per " + m.getNome())
+				.collect(Collectors.joining("\n"));
+		System.out.println(output2);
+		int input = selectNumero(sc, lista.size());
+
+		MezzoDiTrasporto m = lista.get(--input);
+
+		System.out.println("Inserisci data inizio periodo");
+		LocalDate inizio = selectDate();
+		System.out.println("Inserisci data fine periodo");
+		LocalDate fine = selectDate();
+
+		TypedQuery<Ticket> q = em.createQuery(
+				"SELECT t FROM Ticket t WHERE t.veichleId = :paramId AND t.emissionDate BETWEEN :paramInizio AND :paramFine",
+				Ticket.class);
+		q.setParameter("paramId", m.getId());
+		q.setParameter("paramInizio", inizio);
+		q.setParameter("paramFine", fine);
+		int result = q.getResultList().size();
+
+		DateTimeFormatter fm = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM);
+		System.out.println("I biglietti vidimati sulmezzo: " + m + "\n a partire da " + inizio.format(fm) + " e fino a "
+				+ fine.format(fm) + "\n risultano: " + result);
+
+	}
+
+>>>>>>> Stashed changes
 	private void gestionePuntiVendita() {
 		String output = """
 				Inserisci
@@ -194,6 +227,7 @@ public class UtentiEBiglietteriaInteraction extends ConsoleInteraction {
 		sc.nextLine();
 		User u = utenti.get(--input);
 		Card c = u.getCard();
+<<<<<<< Updated upstream
 
 		if (c.getExpireDate() != null && c.getExpireDate().isAfter(LocalDate.now())) {
 			System.out.println("L'abbonamento per l'utente: " + u + "\n e ancora valido.");
@@ -201,6 +235,23 @@ public class UtentiEBiglietteriaInteraction extends ConsoleInteraction {
 			System.out.println("L'abbonamento per l'utente: " + u + "\n e scaduto.");
 		} else {
 			throw new IllegalStateException("Errore dati salvati.");
+=======
+		TypedQuery<Subscription> q = em.createQuery(
+				"SELECT s FROM User u INNER JOIN u.card c INNER JOIN c.subscription s WHERE u.id = :param",
+				Subscription.class);
+		q.setParameter("param", u.getUserId());
+		try {
+			Subscription s = q.getSingleResult();
+			if (s.getExpireDate() != null && s.getExpireDate().isAfter(LocalDate.now())) {
+				System.out.println("L'abbonamento per l'utente: " + u + "\n è ancora valido.");
+			} else if (s.getExpireDate() != null && s.getExpireDate().isBefore(LocalDate.now())) {
+				System.out.println("L'abbonamento per l'utente: " + u + "\n è scaduto.");
+			} else {
+				throw new IllegalStateException("Errore dati salvati.");
+			}
+		} catch (NoResultException e) {
+			System.out.println("L'utente: " + u + "\n non ha un abbonamento");
+>>>>>>> Stashed changes
 		}
 	}
 
@@ -269,6 +320,7 @@ public class UtentiEBiglietteriaInteraction extends ConsoleInteraction {
 
 	}
 
+<<<<<<< Updated upstream
 	private void subscription() {
 		try {
 			System.out.println("Inserisci l'ID dello shop:");
@@ -306,4 +358,6 @@ public class UtentiEBiglietteriaInteraction extends ConsoleInteraction {
 		}
 	}
 
+=======
+>>>>>>> Stashed changes
 }
