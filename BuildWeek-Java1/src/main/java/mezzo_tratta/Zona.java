@@ -13,13 +13,12 @@ import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @Entity
 @NoArgsConstructor
 @Setter
 @Getter
-@ToString
+
 @Table(name = "zone")
 public class Zona {
 
@@ -40,6 +39,11 @@ public class Zona {
 	public Zona(String nome) {
 		super();
 		this.nome = nome;
+	}
+
+	@Override
+	public String toString() {
+		return "Zona [id=" + id + ", nome=" + nome + "]";
 	}
 
 }
