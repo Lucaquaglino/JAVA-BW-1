@@ -21,6 +21,7 @@ public abstract class ConsoleInteraction {
 				System.out.println("Valore inserito non corretto! Riprovare.");
 				return selectNumero(sc, max);
 			}
+			sc.nextLine();
 			return val;
 		} else {
 			System.out.println("Inserire un valore numerico.");

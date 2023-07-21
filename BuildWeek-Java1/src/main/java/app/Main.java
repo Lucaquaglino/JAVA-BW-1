@@ -6,7 +6,6 @@ import java.util.Scanner;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
-import _enum.Periodicy;
 import _enum.State;
 import card_user.Card;
 import card_user.CardUserDAO;
@@ -52,12 +51,12 @@ public class Main {
 		
 		
 		
-		
+		Scanner sc = new Scanner(System.in);
 		
 
 		
 		try {
-			
+			new MainConsoleInteraction(em, sc);
 //			shopsOperations.addShops(shop1);
 //			shopsOperations.addShops(shop2);
 //			shopsOperations.addShops(dist1);
@@ -104,7 +103,7 @@ public class Main {
 		} finally {
 			em.close();
 			emf.close();
-			em.close();
+			sc.close();
 		}
 
 	} 
