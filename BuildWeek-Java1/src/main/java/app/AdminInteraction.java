@@ -36,16 +36,16 @@ public class AdminInteraction {
 		int num = selectNumero(sc, 4);
 		switch (num) {
 		case 1:
-			new UtentiEBiglietteriaInteraction(em, sc).startFunzionalitàUtenti();
+			new UtentiEBiglietteriaInteraction(em, sc).startFunzionalitaUtenti();
 			break;
 		case 2:
-			new UtentiEBiglietteriaInteraction(em, sc).startFunzionalitàBiglietti();
+			new UtentiEBiglietteriaInteraction(em, sc).startFunzionalitaBiglietti();
 			break;
 		case 3:
-			new MezzieTratteInteraction(em, sc).startFunzionalitàMezzi();
+			new MezzieTratteInteraction(em, sc).startFunzionalitaMezzi();
 			break;
 		case 4:
-			new MezzieTratteInteraction(em, sc).startFunzionalitàTratte();
+			new MezzieTratteInteraction(em, sc).startFunzionalitaTratte();
 			break;
 		default:
 			throw new IllegalStateException("Errori nel codice.");

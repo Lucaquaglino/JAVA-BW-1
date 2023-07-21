@@ -32,6 +32,9 @@ public class MainConsoleInteraction extends ConsoleInteraction {
 		switch (num) {
 		case 1:
 			System.out.println("Selezione per utente");
+			UtentiEBiglietteriaInteraction uebi = new UtentiEBiglietteriaInteraction(em, sc);
+			uebi.startFunzionalitaUtenti();
+			subConsole sb = new subConsole(sc, em);
 			break;
 		case 2:
 			System.out.println("Selezione per amministratore");

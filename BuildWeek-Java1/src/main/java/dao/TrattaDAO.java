@@ -26,8 +26,7 @@ public class TrattaDAO {
 		try {
 			t.begin();
 			em.persist(tr);
-
-			t.commit();
+			em.getTransaction().commit();
 
 		} catch (Exception e) {
 			// log.error(e.getMessage());
