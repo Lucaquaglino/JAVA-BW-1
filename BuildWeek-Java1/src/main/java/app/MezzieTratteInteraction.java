@@ -37,7 +37,7 @@ public class MezzieTratteInteraction extends ConsoleInteraction {
 		this.sc = sc;
 	}
 
-	public void startFunzionalitàTratte() {
+	public void startFunzionalitaTratte() {
 
 		String elenco = """
 				Inserisci:
@@ -81,18 +81,16 @@ public class MezzieTratteInteraction extends ConsoleInteraction {
 	private void infoTratte() {
 		System.out.println("Seleziona tratta");
 		List<Tratta> tratte = em.createQuery("SELECT tr FROM Tratta tr", Tratta.class).getResultList();
-		String output = tratte.stream().map(
-				tr -> 1 + tratte.indexOf(tr) + " per " + tr.getPartenza().getNome() + " - "
-						+ tr.getCapolinea().getNome())
-				.collect(Collectors.joining("\n"));
+		String output = tratte.stream().map(tr -> 1 + tratte.indexOf(tr) + " per " + tr.getPartenza().getNome() + " - "
+				+ tr.getCapolinea().getNome()).collect(Collectors.joining("\n"));
 		System.out.println(output);
 		int num = selectNumero(sc, tratte.size());
 		sc.nextLine();
 		Tratta tr = tratte.get(--num);
 		TrattaDAO dao = new TrattaDAO(em);
 		Duration d = dao.getTempoPercorrenza(tr);
-		System.out.println("Il tempo di percorrenza effettivo per la tratta: \n" + tr + "\n è: " + d.toHoursPart() + ":"
-				+ d.toMinutesPart());
+		System.out.println("Il tempo di percorrenza effettivo per la tratta: \n" + tr + "\n è: " + d.toHoursPart()
+				+ ":" + d.toMinutesPart());
 	}
 
 	private void aggiungiTratta() {
@@ -134,8 +132,6 @@ public class MezzieTratteInteraction extends ConsoleInteraction {
 		System.out.println("Tratta salvata correttamente." + tr);
 	}
 
-
-
 	private LocalTime selectOrario() {
 		try {
 			LocalTime op = LocalTime.parse(sc.nextLine(), DateTimeFormatter.ofPattern("HH:mm"));
@@ -150,10 +146,8 @@ public class MezzieTratteInteraction extends ConsoleInteraction {
 	private void rimuoviTratta() {
 		System.out.println("Scegli tratta");
 		List<Tratta> tratte = em.createQuery("SELECT tr FROM Tratta tr", Tratta.class).getResultList();
-		String output = tratte.stream().map(
-				tr -> 1 + tratte.indexOf(tr) + " per " + tr.getPartenza().getNome() + " - "
-						+ tr.getCapolinea().getNome())
-				.collect(Collectors.joining("\n"));
+		String output = tratte.stream().map(tr -> 1 + tratte.indexOf(tr) + " per " + tr.getPartenza().getNome() + " - "
+				+ tr.getCapolinea().getNome()).collect(Collectors.joining("\n"));
 		System.out.println(output);
 		int num = selectNumero(sc, tratte.size());
 		Tratta tr = tratte.get(--num);
@@ -169,7 +163,6 @@ public class MezzieTratteInteraction extends ConsoleInteraction {
 			m.setTratta(null);
 			em.persist(m);
 			em.remove(tr);
-
 			t.commit();
 			System.out.println("Tratta rimossa correttamente.");
 		} catch (Exception e) {
@@ -224,7 +217,7 @@ public class MezzieTratteInteraction extends ConsoleInteraction {
 		return t;
 	}
 
-	public void startFunzionalitàMezzi() {
+	public void startFunzionalitaMezzi() {
 
 		String elenco = """
 				Inserisci:
@@ -249,8 +242,6 @@ public class MezzieTratteInteraction extends ConsoleInteraction {
 		}
 
 	}
-
-
 
 	public void gestioneMezzi() {
 		String elenco = """
@@ -397,8 +388,6 @@ public class MezzieTratteInteraction extends ConsoleInteraction {
 			System.out.println("Errore riprovare.");
 		}
 	}
-
-
 
 	private MezzoDiTrasporto selectMezzo() {
 		List<MezzoDiTrasporto> lista = em.createQuery("SELECT m FROM MezzoDiTrasporto m", MezzoDiTrasporto.class)
