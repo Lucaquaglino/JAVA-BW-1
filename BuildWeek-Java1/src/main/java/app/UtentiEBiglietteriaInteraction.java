@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
+import _enum.Periodicy;
 import _enum.State;
 import card_user.Card;
 import card_user.CardUserDAO;
@@ -89,7 +90,7 @@ public class UtentiEBiglietteriaInteraction extends ConsoleInteraction {
 		LocalDate fine = selectDate();
 
 		TypedQuery<Ticket> q = em.createQuery(
-				"SELECT t FROM Tiket t WHERE t.pv.shopId = :paramId AND t.emission BEETWEEN :paramInizio AND :paramFine",
+				"SELECT t FROM Ticket t WHERE t.pv.shopId = :paramId AND t.emission BETWEEN :paramInizio AND :paramFine",
 				Ticket.class);
 		q.setParameter("paramId", pv.getShopId());
 		q.setParameter("paramInizio", inizio);
@@ -105,12 +106,13 @@ public class UtentiEBiglietteriaInteraction extends ConsoleInteraction {
 				Inserisci
 				1 per aggiungi nuovo punto emissione
 				2 per rimuovi punto emissione esistente
+
 				""";
 		System.out.println(output);
 		int num = selectNumero(sc, 2);
 		switch (num) {
 		case 1:
-
+			aggiungiPE();
 			break;
 		case 2:
 			rimuoviPE();
@@ -194,9 +196,9 @@ public class UtentiEBiglietteriaInteraction extends ConsoleInteraction {
 		Card c = u.getCard();
 
 		if (c.getExpireDate() != null && c.getExpireDate().isAfter(LocalDate.now())) {
-			System.out.println("L'abbonamento per l'utente: " + u + "\n è ancora valido.");
+			System.out.println("L'abbonamento per l'utente: " + u + "\n e ancora valido.");
 		} else if (c.getExpireDate() != null && c.getExpireDate().isBefore(LocalDate.now())) {
-			System.out.println("L'abbonamento per l'utente: " + u + "\n è scaduto.");
+			System.out.println("L'abbonamento per l'utente: " + u + "\n e scaduto.");
 		} else {
 			throw new IllegalStateException("Errore dati salvati.");
 		}
@@ -208,9 +210,11 @@ public class UtentiEBiglietteriaInteraction extends ConsoleInteraction {
 				Inserisci
 				1 per aggiunta nuovo utente
 				2 per rimozione utente esistente
+				3 per fare un nuovo Abbonamento
+				4 per fare un nuovo ticket
 				""";
 		System.out.println(output);
-		int num = selectNumero(sc, 2);
+		int num = selectNumero(sc, 4);
 		sc.nextLine();
 		switch (num) {
 		case 1:
@@ -218,6 +222,12 @@ public class UtentiEBiglietteriaInteraction extends ConsoleInteraction {
 			break;
 		case 2:
 			cancellaUtente();
+			break;
+		case 3:
+			subscription();
+			break;
+		case 4:
+			tiketEmission();
 			break;
 		}
 	}
@@ -257,6 +267,43 @@ public class UtentiEBiglietteriaInteraction extends ConsoleInteraction {
 		CardUserDAO dao = new CardUserDAO();
 		dao.saveUserCard(u, c);
 
+	}
+
+	private void subscription() {
+		try {
+			System.out.println("Inserisci l'ID dello shop:");
+			String shopStrId = sc.nextLine();
+
+			System.out.println("Inserisci l'ID della card:");
+			long cardId = sc.nextLong();
+
+			sc.nextLine(); // Consuma il carattere di invio residuo
+
+			System.out.println("Seleziona il tipo di abbonamento (WEEKLY o MONTHLY):");
+			String tipoAbbonamentoString = sc.nextLine();
+			Periodicy periodicity = Periodicy.valueOf(tipoAbbonamentoString);
+			Punti_venditaDao dad = new Punti_venditaDao();
+			dad.emettiSubscription(shopStrId, cardId, periodicity);
+		} catch (Exception e) {
+			System.out.println("Errore durante l'emissione dell'abbonamento: " + e.getMessage());
+		} finally {
+			System.out.println("Abbonamento emesso correttamente ");
+			sc.close();
+		}
+
+	}
+
+	private void tiketEmission() {
+		try {
+			System.out.println("Inserisci l'ID dello shop:");
+			String shopStrId = sc.nextLine();
+			Punti_venditaDao dat = new Punti_venditaDao();
+			dat.emettiTicket(shopStrId);
+		} catch (Exception e) {
+			System.out.println("Errore durante l'emissione del ticket: " + e.getMessage());
+		} finally {
+			sc.close();
+		}
 	}
 
 }

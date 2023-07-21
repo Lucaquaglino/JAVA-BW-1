@@ -45,15 +45,18 @@ public class Main {
 
 		Rivenditori shop1 = new Rivenditori("Roma");
 		Rivenditori shop2 = new Rivenditori("Forte dei Marmi");
-
+//		shopsOperations.addShops(shop1);
+//		shopsOperations.addShops(shop2);
+//		shopsOperations.addShops(dist1);
+//		shopsOperations.addShops(dist2);
+//		userCardOperation.saveUserCard(u1, card1);
+//		userCardOperation.saveUserCard(u2, card2);
+//		userCardOperation.saveUserCard(u3, card3);
+//		userCardOperation.saveUserCard(u4, card4);
+//		userCardOperation.saveUserCard(u5, card5);
 		MainConsoleInteraction mni = new MainConsoleInteraction(em, sc);
 
 		try {
-
-//			shopsOperations.addShops(shop1);
-//			shopsOperations.addShops(shop2);
-//			shopsOperations.addShops(dist1);
-//			shopsOperations.addShops(dist2);
 
 //			shopsOperations.emettiTicket("8f2c4836-ccc3-4436-970f-52bf03f28373");
 //			shopsOperations.emettiTicket("8f2c4836-ccc3-4436-970f-52bf03f28373");
@@ -83,7 +86,7 @@ public class Main {
 //			System.out.println();
 //			userCardOperation.cardRenewal(8371018202084L, LocalDate.now());
 //			System.out.println();
-////			
+//			
 //			userCardOperation.searchCardByCardId(8371018202084L);
 //			userCardOperation.removeUserById("ba5ca93c-9c97-43cd-89e9-193724032d94");
 
