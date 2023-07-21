@@ -6,8 +6,10 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
+import _enum.Periodicy;
 import card_user.User;
 import dao.ProductDao;
 import mezzo_tratta.MezzoDiTrasporto;
@@ -50,8 +52,51 @@ public class UserInteraction extends ConsoleInteraction {
 		if (val) {
 			selectTratta(null);
 		} else {
-			acquistaBiglietto();
+			acquisto(u);
 		}
+
+	}
+
+	private void acquisto(User u) {
+		String output = """
+				Inserisci
+				1 per biglietto
+				2 per abbonamento
+				""";
+		System.out.println(output);
+		int num = selectNumero(sc, 2);
+		switch (num) {
+		case 1:
+			acquistaBiglietto();
+			break;
+
+		case 2:
+			abbonamento(u);
+			break;
+		default:
+			throw new IllegalStateException();
+		}
+	}
+
+	private void abbonamento(User u) {
+		List<Punti_vendita> lista = em.createQuery("SELECT p FROM Punti_vendita p", Punti_vendita.class)
+				.getResultList();
+		String output = lista.stream().map(p -> 1 + lista.indexOf(p) + " per " + p).collect(Collectors.joining("\n"));
+		System.out.println(output);
+		int num = selectNumero(sc, lista.size());
+		Punti_vendita pv = lista.get(--num);
+		ProductDao dao = new ProductDao(em);
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+		Subscription s = new Subscription(Periodicy.MONTHLY);
+		s.setShopId(pv);
+		s.setCardId(u.getCard());
+		em.persist(s);
+		u.getCard().setSubscription(s);
+		em.persist(u.getCard());
+		tx.commit();
+		System.out.println("Abbonamento acquistato: " + s);
+		selectTratta(null);
 
 	}
 
