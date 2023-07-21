@@ -5,11 +5,13 @@ import java.util.UUID;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import mezzo_tratta.MezzoDiTrasporto;
 import punti_vendita.Punti_vendita;
 
 @Entity
@@ -20,8 +22,9 @@ import punti_vendita.Punti_vendita;
 public class Ticket extends Product {
 	private Boolean isUsed = false;
 	
-	//@JoinColumn
-	long veichleId;
+	@OneToOne
+	@JoinColumn(name = "mezzo_id")
+	MezzoDiTrasporto veichle;
 
 
 	@Override

@@ -11,6 +11,7 @@ import javax.persistence.OneToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import product.Product;
 import product.Subscription;
 
 @Getter
@@ -28,7 +29,8 @@ public class Card {
 	private User user;
 	
 	@OneToOne
-	private Subscription subscription;
+	@JoinColumn(referencedColumnName = "subscriptionId")
+	private Product subscriptionId;
 	
 	public Card(LocalDate _activationDate) {
 		this.activationDate = _activationDate;

@@ -59,32 +59,32 @@ public class Main {
 		
 		try {
 			
-//			shopsOperations.addShops(shop1);
-//			shopsOperations.addShops(shop2);
-//			shopsOperations.addShops(dist1);
-//			shopsOperations.addShops(dist2);
+			shopsOperations.addShops(shop1);
+			shopsOperations.addShops(shop2);
+			shopsOperations.addShops(dist1);
+			shopsOperations.addShops(dist2);
 			
 			
 	
 			
-//			shopsOperations.emettiTicket("72392759-fee7-448c-b38a-41692ba5db09");
-//			shopsOperations.emettiTicket("72392759-fee7-448c-b38a-41692ba5db09");
+//			shopsOperations.emettiTicket("08f5ed30-9a75-4f75-a014-2931a4eed365");
+//			shopsOperations.emettiTicket("08f5ed30-9a75-4f75-a014-2931a4eed365");
 		
 			
-			//shopsOperations.emettiSubscription("72392759-fee7-448c-b38a-41692ba5db09", 6062650664245L, Periodicy.WEEKLY);
+			//shopsOperations.emettiSubscription("08f5ed30-9a75-4f75-a014-2931a4eed365", 3868075426518L, Periodicy.WEEKLY);
 			//shopsOperations.emettiSubscription("f9c406c4-9993-4435-9214-4683848a64ca", 9205308759188L, Periodicy.WEEKLY);
 		
 			//shopsOperations.checkSubscriptionValidity(9205308759188L);
 			
-			shopsOperations.printTicketsAndPeriodByShopAndDate("72392759-fee7-448c-b38a-41692ba5db09", LocalDate.of(2001, 9, 17), LocalDate.of(2024, 9, 17));
+			//shopsOperations.printTicketsAndPeriodByShopAndDate("72392759-fee7-448c-b38a-41692ba5db09", LocalDate.of(2001, 9, 17), LocalDate.of(2024, 9, 17));
 			
 			//shopsOperations.shopListByLocation("Milano");;
 			
-//			userCardOperation.saveUserCard(u1, card1);
-//			userCardOperation.saveUserCard(u2, card2);
-//			userCardOperation.saveUserCard(u3, card3);
-//			userCardOperation.saveUserCard(u4, card4);
-//			userCardOperation.saveUserCard(u5, card5);
+			userCardOperation.saveUserCard(u1, card1);
+			userCardOperation.saveUserCard(u2, card2);
+			userCardOperation.saveUserCard(u3, card3);
+			userCardOperation.saveUserCard(u4, card4);
+			userCardOperation.saveUserCard(u5, card5);
 			
 //			userCardOperation.searchUserbyName("Flavio");
 //			userCardOperation.searchUserbySurname("Mammoliti");

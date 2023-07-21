@@ -22,6 +22,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import product.Ticket;
 
 @Entity
 @Table(name = "mezzi")
@@ -57,6 +58,10 @@ public abstract class MezzoDiTrasporto {
 	@OneToOne
 	@JoinColumn(name = "tratta_id")
 	private Tratta tratta;
+	
+	@OneToOne
+	@JoinColumn(name = "ticket_id")
+	private Ticket ticket;
 
 	public MezzoDiTrasporto(String nome, String marca, Short capienza, Tratta tratta) {
 		super();

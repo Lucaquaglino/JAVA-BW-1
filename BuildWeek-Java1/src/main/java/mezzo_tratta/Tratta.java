@@ -24,6 +24,7 @@ import io.hypersistence.utils.hibernate.type.interval.PostgreSQLIntervalType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import product.Ticket;
 
 @Entity
 @NoArgsConstructor
@@ -63,6 +64,7 @@ public class Tratta {
 
 	@OneToOne(mappedBy = "tratta")
 	private MezzoDiTrasporto mezzo;
+	
 
 //	@Column(name = "t_percorrenza", columnDefinition = "INTERVAL")
 //	private Duration tempoDiPercorrenza;
