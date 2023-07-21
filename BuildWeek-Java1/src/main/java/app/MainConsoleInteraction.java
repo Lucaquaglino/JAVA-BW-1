@@ -32,7 +32,7 @@ public class MainConsoleInteraction extends ConsoleInteraction {
 		switch (num) {
 		case 1:
 			System.out.println("Selezione per utente");
-
+			new UserInteraction(sc, em);
 			break;
 		case 2:
 			System.out.println("Selezione per amministratore");
