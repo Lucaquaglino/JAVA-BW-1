@@ -109,15 +109,15 @@ public class CardUserDAO {
 	
 		// RINNOVA la scadenza della CARD  ------------------------------------------------------------
 			
-			public void cardRenewal(Long cardId, LocalDate date) {
+			public void cardRenewal(Long cardId) {
 			    try {
 			        List<Card> cardList = em.createQuery("SELECT c FROM Card c WHERE c.cardId = :cardId", Card.class).setParameter("cardId", cardId).getResultList();
 			        if (cardList.isEmpty()) {
 			            System.out.println("Non è possibile effettuare il rinnovo della carta perché nessun elemento corrisponde a questo ID " + "'" + cardId + "'" + ", prova con un altro ID");
 			        } else {
 			            for (Card card : cardList) {
-			                card.setActivationDate(date);
-			                card.setExpireDate(date.plusYears(1));
+			                card.setActivationDate(LocalDate.now());
+			                card.setExpireDate(LocalDate.now().plusYears(1));
 			                card.setValid(true);
 			                em.getTransaction().begin();
 			                em.getTransaction().commit();

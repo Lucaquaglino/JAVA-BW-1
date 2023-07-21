@@ -40,6 +40,7 @@ public class Subscription extends Product {
 		} else {
 			this.expireDate = getEmissionDate().plusMonths(1);
 		}
+		this.isActive = (this.expireDate.isAfter(expireDate)) ? false : true; 
 
 	}
 

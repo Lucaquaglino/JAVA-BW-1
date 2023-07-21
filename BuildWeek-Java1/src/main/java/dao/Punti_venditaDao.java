@@ -1,6 +1,6 @@
 package dao;
 
-import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.EntityManager;
@@ -21,9 +21,9 @@ public class Punti_venditaDao {
 	EntityManagerFactory emf = Persistence.createEntityManagerFactory("BuildWeek-Java1");
 	EntityManager em = emf.createEntityManager();
 
-//metodo save
+//SALVA SHOPS ----------------------------------------------
 
-	public void savePunti_vendita(Punti_vendita ev) {
+	public void addShops(Punti_vendita ev) {
 		EntityTransaction e = em.getTransaction();
 		e.begin();
 		em.persist(ev);
@@ -31,9 +31,9 @@ public class Punti_venditaDao {
 		System.out.println("Punto vendita creato correttamente");
 	}
 
-//metodo find	
+//TROVA SHOPS by ID ----------------------------------------------	
 
-	public Punti_vendita findPunti_venditaById(String strId) {
+	public Punti_vendita findShopsById(String strId) {
 		UUID shopId = UUID.fromString(strId);
 		Punti_vendita trova = em.find(Punti_vendita.class, shopId);
 		if (trova != null) {
@@ -43,10 +43,26 @@ public class Punti_venditaDao {
 		}
 		return trova;
 	}
+	
+//ELENCO SHOPS ----------------------------------------------
+	public void shopList() {
+		List<Punti_vendita> list = em.createQuery("SELECT shop FROM Punti_vendita shop", Punti_vendita.class).getResultList();
+		for (Punti_vendita punti_vendita : list) {
+			System.out.println(punti_vendita);
+		}
+	}
+	
+//ELENCO SHOPS by LOCATION ----------------------------------------------
+	public void shopListByLocation(String location) {
+		List<Punti_vendita> list = em.createQuery("SELECT shop FROM Punti_vendita shop WHERE shop.location = :location", Punti_vendita.class).setParameter("location", location).getResultList();
+		for (Punti_vendita shop : list) {
+			System.out.println(shop);
+		}
+	}
 
-//metodo delete
+//RIMUOVI SHOP ----------------------------------------------
 
-	public void findPunti_venditaByIdAndDelete(String shopStrId) {
+	public void removeShopsById(String shopStrId) {
 		UUID shopId = UUID.fromString(shopStrId);
 		Punti_vendita trova = em.find(Punti_vendita.class, shopId);
 		if (trova != null) {
@@ -54,13 +70,13 @@ public class Punti_venditaDao {
 			t.begin();
 			em.remove(trova);
 			t.commit();
-			System.out.println("Punto vendita  eliminato con successo");
+			System.out.println("Punto vendita eliminato con successo");
 		} else {
-			System.out.println("Punto vendita  non trovato");
+			System.out.println("Punto vendita non trovato");
 		}
 	}
 	
-//EMETTI TICKET
+//EMETTI TICKET --------------------------------------------
 	public void emettiTicket(String shopStrId) {
 	    UUID shopId = UUID.fromString(shopStrId);
 	    Punti_vendita shop = em.find(Punti_vendita.class, shopId);
@@ -98,15 +114,14 @@ public class Punti_venditaDao {
 	    }
 	}
 	
-//EMETTI ABBONAMENTO
+//EMETTI ABBONAMENTO ---------------------------------------
 	public void emettiSubscription(String shopStrId, long cardId, Periodicy periodicity) {
 	    UUID shopId = UUID.fromString(shopStrId);
 	    Punti_vendita shop = em.find(Punti_vendita.class, shopId);
+	    System.out.println(shop);
 	    
 	    Card card = em.find(Card.class, cardId);
 	    
-	    System.out.println(shop);
-	    System.out.println(card);
 
 	    try {
 	        if (shop != null && card !=null) {
@@ -151,5 +166,21 @@ public class Punti_venditaDao {
 	        em.getTransaction().rollback();
 	        System.out.println("Errore avvenuto in fase salvataggio abbonamento " + e.getMessage());
 	    }
+	}
+	
+ //CONTROLLA VALIDITA' ABBONAMENTO
+	public void checkSubscriptionValidity(Long cardId) {
+		List<Product> sub = em.createQuery("SELECT sub FROM Product sub WHERE sub.cardid_cardid = :cardId", Product.class).setParameter("cardId", cardId).getResultList();
+		System.out.println(sub);
+		
+//		try {
+//			if(sub.getIsActive()) {
+//				System.out.println("L'abbonamento è attivo");
+//			} else {
+//				System.out.println("Purtroppo l'abbonamento è scaduto, fanne uno nuovo");	
+//			}
+//		} catch(Exception e) {
+//			e.getStackTrace();
+//		}
 	}
 }

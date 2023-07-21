@@ -25,6 +25,7 @@ public class Main {
 		
 		
 		CardUserDAO userCardOperation = new CardUserDAO(); 
+		
 		User u1 = new User("Flavio", "Mammoliti", LocalDate.of(1989,05,19));
 		Card card1 = new Card(LocalDate.of(2022, 12,1));
 		
@@ -57,24 +58,30 @@ public class Main {
 		
 		try {
 			
-//			shopsOperations.savePunti_vendita(shop1);
-//			shopsOperations.savePunti_vendita(shop2);
-//			shopsOperations.savePunti_vendita(dist1);
-//			shopsOperations.savePunti_vendita(dist2);
+//			shopsOperations.addShops(shop1);
+//			shopsOperations.addShops(shop2);
+//			shopsOperations.addShops(dist1);
+//			shopsOperations.addShops(dist2);
 			
 			
 	
 			
-//			shopsOperations.emettiTicket("5b3e9f53-7b6a-4e43-960a-d556514260be");
-//			shopsOperations.emettiTicket("df341eab-b8ce-476f-97d9-e5ce9eeb1bd6");
+//			shopsOperations.emettiTicket("8f2c4836-ccc3-4436-970f-52bf03f28373");
+//			shopsOperations.emettiTicket("8f2c4836-ccc3-4436-970f-52bf03f28373");
+		
 			
-			shopsOperations.emettiSubscription("d24aed9c-4267-445d-8e82-0f10d2851582", 5718993859311L, Periodicy.WEEKLY);
+			//shopsOperations.emettiSubscription("8f2c4836-ccc3-4436-970f-52bf03f28373", 9060996968082L, Periodicy.WEEKLY);
+			//shopsOperations.emettiSubscription("be4490a1-f839-4aec-b7be-fe03816439a1", 5764214038123L, Periodicy.WEEKLY);
 			
-//			userCardOperation.saveUserCard(u1, card1);
-//			userCardOperation.saveUserCard(u2, card2);
-//			userCardOperation.saveUserCard(u3, card3);
-//			userCardOperation.saveUserCard(u4, card4);
-//			userCardOperation.saveUserCard(u5, card5);
+			//shopsOperations.checkSubscriptionValidity(5764214038123L);
+			
+			//shopsOperations.shopListByLocation("Milano");;
+			
+			userCardOperation.saveUserCard(u1, card1);
+			userCardOperation.saveUserCard(u2, card2);
+			userCardOperation.saveUserCard(u3, card3);
+			userCardOperation.saveUserCard(u4, card4);
+			userCardOperation.saveUserCard(u5, card5);
 			
 //			userCardOperation.searchUserbyName("Flavio");
 //			userCardOperation.searchUserbySurname("Mammoliti");
