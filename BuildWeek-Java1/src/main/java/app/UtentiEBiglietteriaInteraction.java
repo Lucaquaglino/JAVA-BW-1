@@ -191,8 +191,10 @@ public class UtentiEBiglietteriaInteraction extends ConsoleInteraction {
 				.collect(Collectors.joining("\n"));
 		System.out.println(output);
 		int input = selectNumero(sc, utenti.size());
-		User u = utenti.get(input);
+		sc.nextLine();
+		User u = utenti.get(--input);
 		Card c = u.getCard();
+
 		if (c.getExpireDate() != null && c.getExpireDate().isAfter(LocalDate.now())) {
 			System.out.println("L'abbonamento per l'utente: " + u + "\n è ancora valido.");
 		} else if (c.getExpireDate() != null && c.getExpireDate().isBefore(LocalDate.now())) {
