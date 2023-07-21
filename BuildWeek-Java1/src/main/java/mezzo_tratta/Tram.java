@@ -7,13 +7,12 @@ import javax.persistence.Entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @Entity
 @DiscriminatorValue("Tram")
 @Setter
 @Getter
-@ToString
+
 @NoArgsConstructor
 public class Tram extends MezzoDiTrasporto {
 
@@ -23,6 +22,13 @@ public class Tram extends MezzoDiTrasporto {
 	public Tram(String nome, String marca, Short capienza, Short numeroCabine, Tratta tratta) {
 		super(nome, marca, capienza, tratta);
 		this.numeroCabine = numeroCabine;
+	}
+
+	@Override
+	public String toString() {
+		return "Tram [numeroCabine=" + numeroCabine + ", getId()=" + getId() + ", getNome()=" + getNome()
+				+ ", getMarca()=" + getMarca() + ", getCapienza()=" + getCapienza() + ", getTratta()=" + getTratta()
+				+ "]";
 	}
 
 }

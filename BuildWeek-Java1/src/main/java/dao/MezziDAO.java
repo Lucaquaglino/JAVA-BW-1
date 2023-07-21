@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import javax.persistence.EntityManager;
@@ -137,12 +138,26 @@ public class MezziDAO {
 
 	public static void salvaDatiGenerati(EntityManager em) {
 		List<MezzoDiTrasporto> mezzi = getDatiGenerati();
-		mezzi.stream().map(m -> m.getTratta()).flatMap(t -> Stream.of(t.getCapolinea(), t.getPartenza())).toList()
+		Predicate<Zona> pz = new ZonaDAO(em)::presente;
+		pz = pz.negate();
+		mezzi.stream().map(m -> m.getTratta()).flatMap(t -> Stream.of(t.getCapolinea(), t.getPartenza())).filter(pz)
 				.forEach(new ZonaDAO(em)::save);
-		mezzi.stream().flatMap(m -> m.getTratta().getTappe().stream()).map(t -> t.getZona()).toList()
+
+		mezzi.stream().flatMap(m -> m.getTratta().getTappe().stream()).map(t -> t.getZona()).filter(pz)
 				.forEach(new ZonaDAO(em)::save);
-		mezzi.stream().map(m -> m.getTratta()).toList().forEach(new TrattaDAO(em)::save);
-		mezzi.forEach(new MezziDAO(em)::save);
+		Predicate<Tratta> pt = new TrattaDAO(em)::presente;
+		pt = pt.negate();
+		mezzi.stream().map(m -> m.getTratta()).filter(pt).forEach(new TrattaDAO(em)::save);
+		Predicate<MezzoDiTrasporto> pm = new MezziDAO(em)::presente;
+		pm = pm.negate();
+		mezzi.stream().filter(pm).forEach(new MezziDAO(em)::save);
+	}
+
+	private boolean presente(MezzoDiTrasporto m) {
+		TypedQuery<MezzoDiTrasporto> q = em.createQuery("SELECT m FROM MezzoDiTrasporto m WHERE m.nome = :param",
+				MezzoDiTrasporto.class);
+		q.setParameter("param", m.getNome());
+		return q.getResultList().size() > 0;
 	}
 
 }

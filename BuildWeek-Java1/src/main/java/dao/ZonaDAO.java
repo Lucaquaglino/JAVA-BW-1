@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
 
 import mezzo_tratta.Zona;
 
@@ -49,6 +50,12 @@ public class ZonaDAO {
 
 	public void refresh(Zona z) {
 		em.refresh(z);
+	}
+
+	public boolean presente(Zona z) {
+		TypedQuery<Zona> q = em.createQuery("SELECT z FROM Zona z WHERE z.nome = :param", Zona.class);
+		q.setParameter("param", z.getNome());
+		return q.getResultList().size() > 0;
 	}
 
 	public static List<Zona> getDatiGenerati() {

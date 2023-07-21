@@ -18,14 +18,13 @@ import io.hypersistence.utils.hibernate.type.interval.PostgreSQLIntervalType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @Entity
 @Table(name = "tappe", uniqueConstraints = { @UniqueConstraint(columnNames = { "zona_id", "tratta_id", "ordine" }) })
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
+
 @TypeDef(typeClass = PostgreSQLIntervalType.class, defaultForType = Duration.class)
 public class Tappa {
 	
@@ -53,6 +52,13 @@ public class Tappa {
 		this.tratta = tratta;
 		this.ordine = ordine;
 		this.tempoDiPercorrenza = tempoDiPercorrenza;
+	}
+
+	@Override
+	public String toString() {
+		return "Tappa [id=" + id + ", zona=" + zona + ", tempoDiPercorrenza="
+				+ (tempoDiPercorrenza.toHoursPart() + ":" + tempoDiPercorrenza.toMinutesPart()) + ", ordine="
+				+ ordine + "]";
 	}
 	
 

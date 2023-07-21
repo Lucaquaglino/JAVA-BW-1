@@ -93,4 +93,14 @@ public class TrattaDAO {
 						new Tappa(zone.get(1), null, 3, Duration.ofMinutes(15l)))));
 		return tratte;
 	}
+
+	public boolean presente(Tratta t) {
+		TypedQuery<Tratta> qt = em.createQuery(
+				"SELECT tr FROM  Tratta tr WHERE tr.partenza.nome = :param1 AND tr.capolinea.nome = :param2",
+				Tratta.class);
+		qt.setParameter("param1", t.getPartenza().getNome());
+		qt.setParameter("param2", t.getCapolinea().getNome());
+		return qt.getResultList().size() > 0;
+
+	}
 }

@@ -2,7 +2,6 @@ package app;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.time.format.FormatStyle;
 import java.util.List;
 import java.util.Scanner;
@@ -22,13 +21,13 @@ import punti_vendita.Distributori;
 import punti_vendita.Punti_vendita;
 import punti_vendita.Rivenditori;
 
-public class UtentiEBiglietteriaInteraction {
+public class UtentiEBiglietteriaInteraction extends ConsoleInteraction {
 
 	private EntityManager em;
 	private Scanner sc;
 
 	public UtentiEBiglietteriaInteraction(EntityManager em, Scanner sc) {
-		super();
+		super(sc);
 		this.em = em;
 		this.sc = sc;
 	}
@@ -60,6 +59,7 @@ public class UtentiEBiglietteriaInteraction {
 				1 per traccia biglietti
 				2 per gestione punti emissione
 				""";
+		System.out.println(output);
 		int input = selectNumero(sc, 2);
 		switch (input) {
 		case 1:
@@ -182,19 +182,7 @@ public class UtentiEBiglietteriaInteraction {
 		}
 	}
 
-	public int selectNumero(Scanner sc, int max) {
-		if (sc.hasNextInt()) {
-			int val = sc.nextInt();
-			if (val < 1 || val > max) {
-				System.out.println("Valore inserito non corretto! Riprovare.");
-				return selectNumero(sc, max);
-			}
-			return val;
-		} else {
-			System.out.println("Inserire un valore numerico.");
-			return selectNumero(sc, max);
-		}
-	}
+
 
 	private void validitàAbbonamenti() {
 		List<User> utenti = em.createQuery("SELECT u FROM User u WHERE u.card IS NOT NULL", User.class).getResultList();
@@ -223,6 +211,7 @@ public class UtentiEBiglietteriaInteraction {
 				""";
 		System.out.println(output);
 		int num = selectNumero(sc, 2);
+		sc.nextLine();
 		switch (num) {
 		case 1:
 			aggiungiUtente();
@@ -255,6 +244,7 @@ public class UtentiEBiglietteriaInteraction {
 	}
 
 	private void aggiungiUtente() {
+
 		System.out.println("Inserisci nome utente");
 		String nome = sc.nextLine();
 		System.out.println("Inserisci cognome utente");
@@ -269,12 +259,5 @@ public class UtentiEBiglietteriaInteraction {
 
 	}
 
-	private LocalDate selectDate() {
-		try {
-			return LocalDate.parse(sc.nextLine());
-		} catch (DateTimeParseException e) {
-			System.out.println("Valore immesso non valido riprovare.");
-			return selectDate();
-		}
-	}
+
 }

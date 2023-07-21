@@ -24,13 +24,12 @@ import io.hypersistence.utils.hibernate.type.interval.PostgreSQLIntervalType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @Entity
 @NoArgsConstructor
 @Setter
 @Getter
-@ToString
+
 @Table(name = "tratte")
 @NamedQuery(name = "all", query = "SELECT tr FROM Tratta tr")
 @TypeDef(typeClass = PostgreSQLIntervalType.class, defaultForType = Duration.class)
@@ -81,6 +80,12 @@ public class Tratta {
 		tappe.forEach(t -> t.setTratta(this));
 		this.tappe = tappe;
 
+	}
+
+	@Override
+	public String toString() {
+		return "Tratta [id=" + id + ", nome=" + nome + ", partenza=" + partenza + ", capolinea=" + capolinea
+				+ ", tappe=" + tappe + ", arrivalTime=" + arrivalTime + ", startTime=" + startTime + "]";
 	}
 
 }
