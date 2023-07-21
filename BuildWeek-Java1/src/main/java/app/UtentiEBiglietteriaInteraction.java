@@ -158,7 +158,7 @@ public class UtentiEBiglietteriaInteraction extends ConsoleInteraction {
 			throw new IllegalStateException("Errore nel codice");
 		}
 		Punti_venditaDao dao = new Punti_venditaDao();
-		dao.savePunti_vendita(pv);
+		dao.addShops(pv);
 		System.out.println("Punto emissione salvato con successo.");
 	}
 

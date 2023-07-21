@@ -12,6 +12,7 @@ import card_user.Card;
 import card_user.CardUserDAO;
 import card_user.User;
 import dao.Punti_venditaDao;
+import product.Product;
 import punti_vendita.Distributori;
 import punti_vendita.Rivenditori;
 import utils.JpaUtil;
@@ -66,22 +67,24 @@ public class Main {
 			
 	
 			
-//			shopsOperations.emettiTicket("8f2c4836-ccc3-4436-970f-52bf03f28373");
-//			shopsOperations.emettiTicket("8f2c4836-ccc3-4436-970f-52bf03f28373");
+//			shopsOperations.emettiTicket("72392759-fee7-448c-b38a-41692ba5db09");
+//			shopsOperations.emettiTicket("72392759-fee7-448c-b38a-41692ba5db09");
 		
 			
-			//shopsOperations.emettiSubscription("8f2c4836-ccc3-4436-970f-52bf03f28373", 9060996968082L, Periodicy.WEEKLY);
-			//shopsOperations.emettiSubscription("be4490a1-f839-4aec-b7be-fe03816439a1", 5764214038123L, Periodicy.WEEKLY);
+			//shopsOperations.emettiSubscription("72392759-fee7-448c-b38a-41692ba5db09", 6062650664245L, Periodicy.WEEKLY);
+			//shopsOperations.emettiSubscription("f9c406c4-9993-4435-9214-4683848a64ca", 9205308759188L, Periodicy.WEEKLY);
+		
+			//shopsOperations.checkSubscriptionValidity(9205308759188L);
 			
-			//shopsOperations.checkSubscriptionValidity(5764214038123L);
+			shopsOperations.printTicketsAndPeriodByShopAndDate("72392759-fee7-448c-b38a-41692ba5db09", LocalDate.of(2001, 9, 17), LocalDate.of(2024, 9, 17));
 			
 			//shopsOperations.shopListByLocation("Milano");;
 			
-			userCardOperation.saveUserCard(u1, card1);
-			userCardOperation.saveUserCard(u2, card2);
-			userCardOperation.saveUserCard(u3, card3);
-			userCardOperation.saveUserCard(u4, card4);
-			userCardOperation.saveUserCard(u5, card5);
+//			userCardOperation.saveUserCard(u1, card1);
+//			userCardOperation.saveUserCard(u2, card2);
+//			userCardOperation.saveUserCard(u3, card3);
+//			userCardOperation.saveUserCard(u4, card4);
+//			userCardOperation.saveUserCard(u5, card5);
 			
 //			userCardOperation.searchUserbyName("Flavio");
 //			userCardOperation.searchUserbySurname("Mammoliti");
