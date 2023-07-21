@@ -35,7 +35,7 @@ public class UtentiEBiglietteriaInteraction extends ConsoleInteraction {
 		this.sc = sc;
 	}
 
-	public void startFunzionalitàUtenti() {
+	public void startFunzionalitaUtenti() {
 
 		String output = """
 				Inserisci
@@ -47,7 +47,7 @@ public class UtentiEBiglietteriaInteraction extends ConsoleInteraction {
 
 		switch (num) {
 		case 1:
-			validitàAbbonamenti();
+			validitaAbbonamenti();
 			break;
 		case 2:
 			gestioneUtenti();
@@ -57,7 +57,7 @@ public class UtentiEBiglietteriaInteraction extends ConsoleInteraction {
 		}
 	}
 
-	public void startFunzionalitàBiglietti() {
+	public void startFunzionalitaBiglietti() {
 		String output = """
 				Inserisci
 				1 per traccia biglietti
@@ -244,7 +244,7 @@ public class UtentiEBiglietteriaInteraction extends ConsoleInteraction {
 
 
 
-	private void validitàAbbonamenti() {
+	private void validitaAbbonamenti() {
 		List<User> utenti = em.createQuery("SELECT u FROM User u WHERE u.card IS NOT NULL", User.class).getResultList();
 		System.out.println("Seleziona utente.");
 		String output = utenti.stream().map(u -> (1 + utenti.indexOf(u)) + " per " + u.getName() + " " + u.getSurname())
