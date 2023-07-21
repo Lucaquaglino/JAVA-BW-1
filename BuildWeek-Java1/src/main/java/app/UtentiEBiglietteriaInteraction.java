@@ -17,6 +17,7 @@ import card_user.Card;
 import card_user.CardUserDAO;
 import card_user.User;
 import dao.Punti_venditaDao;
+import mezzo_tratta.MezzoDiTrasporto;
 import product.Subscription;
 import product.Ticket;
 import punti_vendita.Distributori;
@@ -79,6 +80,28 @@ public class UtentiEBiglietteriaInteraction extends ConsoleInteraction {
 	}
 
 	private void tracciaBiglietti() {
+		String output = """
+				Inserisci
+				1 per traccia per punti di emissione
+				2 per traccia per mezzo di trasporto
+				""";
+		System.out.println(output);
+		int input = selectNumero(sc, 2);
+
+		switch (input) {
+		case 1:
+			tracciaBigliettiPerPV();
+			break;
+
+		case 2:
+			tracciaBigliettiPerMT();
+			break;
+		default:
+			throw new IllegalStateException("Errore nel codice");
+		}
+	}
+
+	private void tracciaBigliettiPerPV() {
 		List<Punti_vendita> lista = em.createQuery("SELECT pv FROM Punti_vendita pv", Punti_vendita.class)
 				.getResultList();
 		if (lista.isEmpty()) {
@@ -108,6 +131,35 @@ public class UtentiEBiglietteriaInteraction extends ConsoleInteraction {
 				+ fine.format(fm) + "\n risultano: " + result);
 	}
 
+	private void tracciaBigliettiPerMT() {
+		List<MezzoDiTrasporto> lista = em.createQuery("SELECT m FROM MezzoDiTrasporto m", MezzoDiTrasporto.class)
+				.getResultList();
+		System.out.println("Selezionare lemento da rimuovere.");
+		String output2 = lista.stream().map(m -> 1 + lista.indexOf(m) + " per " + m.getNome())
+				.collect(Collectors.joining("\n"));
+		System.out.println(output2);
+		int input = selectNumero(sc, lista.size());
+
+		MezzoDiTrasporto m = lista.get(--input);
+
+		System.out.println("Inserisci data inizio periodo");
+		LocalDate inizio = selectDate();
+		System.out.println("Inserisci data fine periodo");
+		LocalDate fine = selectDate();
+
+		TypedQuery<Ticket> q = em.createQuery(
+				"SELECT t FROM Ticket t WHERE t.veichleId = :paramId AND t.emissionDate BETWEEN :paramInizio AND :paramFine",
+				Ticket.class);
+		q.setParameter("paramId", m.getId());
+		q.setParameter("paramInizio", inizio);
+		q.setParameter("paramFine", fine);
+		int result = q.getResultList().size();
+
+		DateTimeFormatter fm = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM);
+		System.out.println("I biglietti vidimati sulmezzo: " + m + "\n a partire da " + inizio.format(fm) + " e fino a "
+				+ fine.format(fm) + "\n risultano: " + result);
+
+	}
 	private void gestionePuntiVendita() {
 		String output = """
 				Inserisci
@@ -172,7 +224,7 @@ public class UtentiEBiglietteriaInteraction extends ConsoleInteraction {
 
 	private void rimuoviPE() {
 		System.out.println("Seleziona punto emissione");
-		List<Punti_vendita> lista = em.createNamedQuery("SELECT  pv FROM Punti_vendita pv", Punti_vendita.class)
+		List<Punti_vendita> lista = em.createQuery("SELECT pv FROM Punti_vendita pv", Punti_vendita.class)
 				.getResultList();
 		String output = lista.stream().map(pv -> 1 + lista.indexOf(pv) + " per " + pv.getLocation())
 				.collect(Collectors.joining("\n"));

@@ -233,7 +233,7 @@ public class MezzieTratteInteraction extends ConsoleInteraction {
 				3 per gestione servizio
 				""";
 		System.out.println(elenco);
-		int num = selectNumero(sc, 2);
+		int num = selectNumero(sc, 3);
 		switch (num) {
 		case 1:
 			gestioneMezzi();
@@ -298,7 +298,7 @@ public class MezzieTratteInteraction extends ConsoleInteraction {
 			qn.setParameter("paramTappa", tappa.getId());
 			long ripetizioni = qn.getSingleResult();
 			System.out.println("La tappa " + tappa.getNome() + " viene percorsa "
-					+ (ripetizioni > 1 ? ripetizioni + "volte" : "una volta") + " dal mezzo di trasporto: " + m);
+					+ (ripetizioni > 1 ? ripetizioni + " volte" : "una volta") + " dal mezzo di trasporto: " + m);
 
 		} catch (IndexOutOfBoundsException e) {
 			System.out.println(e.getMessage());
@@ -418,6 +418,10 @@ public class MezzieTratteInteraction extends ConsoleInteraction {
 		TypedQuery<Servizio> q = em.createQuery("SELECT s FROM Servizio s WHERE s.mezzo.id = :param", Servizio.class);
 		q.setParameter("param", m.getId());
 		List<Servizio> lista = q.getResultList();
+		if (lista.isEmpty()) {
+			System.out.println("Non ci sono servizi salvati.");
+			return;
+		}
 		String output = lista.stream().map(s -> 1 + lista.indexOf(s) + " per " + s).collect(Collectors.joining("\n"));
 		System.out.println("Seleziona servizio");
 		System.out.println(output);

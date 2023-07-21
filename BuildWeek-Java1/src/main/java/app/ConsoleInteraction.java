@@ -24,6 +24,7 @@ public abstract class ConsoleInteraction {
 			sc.nextLine();
 			return val;
 		} else {
+			sc.next();
 			System.out.println("Inserire un valore numerico.");
 			return selectNumero(sc, max);
 		}
