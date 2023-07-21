@@ -85,7 +85,7 @@ public class MezzieTratteInteraction extends ConsoleInteraction {
 				+ tr.getCapolinea().getNome()).collect(Collectors.joining("\n"));
 		System.out.println(output);
 		int num = selectNumero(sc, tratte.size());
-		sc.nextLine();
+
 		Tratta tr = tratte.get(--num);
 		TrattaDAO dao = new TrattaDAO(em);
 		Duration d = dao.getTempoPercorrenza(tr);
@@ -102,7 +102,7 @@ public class MezzieTratteInteraction extends ConsoleInteraction {
 				.collect(Collectors.joining("\n"));
 		System.out.println(output);
 		int num = selectNumero(sc, zone.size());
-		sc.nextLine();
+
 		Zona partenza = zone.get(--num);
 		System.out.println("Selezionare capolinea");
 		System.out.println(output);
@@ -205,7 +205,7 @@ public class MezzieTratteInteraction extends ConsoleInteraction {
 				.collect(Collectors.joining("\n"));
 		System.out.println(output);
 		int num = selectNumero(sc, zone.size());
-		sc.nextLine();
+
 		Zona z = zone.get(--num);
 		System.out.println("Inserisci minuti");
 		int minuti = selezioneMinuti();
@@ -251,7 +251,7 @@ public class MezzieTratteInteraction extends ConsoleInteraction {
 				""";
 		System.out.println(elenco);
 		int num = selectNumero(sc, 2);
-		sc.nextLine();
+
 		switch (num) {
 		case 1:
 			aggiungiMezzo();
@@ -271,7 +271,7 @@ public class MezzieTratteInteraction extends ConsoleInteraction {
 				.collect(Collectors.joining("\n"));
 		System.out.println("Inserire: \n" + s);
 		int num = selectNumero(sc, lista.size());
-		sc.nextLine();
+
 		try {
 			MezzoDiTrasporto m = lista.get(--num);
 			TypedQuery<Zona> qt = em.createQuery(
@@ -282,7 +282,7 @@ public class MezzieTratteInteraction extends ConsoleInteraction {
 			s = tappe.stream().map(t -> 1 + tappe.indexOf(t) + " per " + t.getNome()).collect(Collectors.joining("\n"));
 			System.out.println("Inserire: \n" + s);
 			num = selectNumero(sc, tappe.size());
-			sc.nextLine();
+
 			Zona tappa = tappe.get(--num);
 			TypedQuery<Long> qn = em.createNamedQuery("ripetizioniTappa", Long.class);
 			qn.setParameter("paramMezzo", m.getId());
@@ -316,7 +316,7 @@ public class MezzieTratteInteraction extends ConsoleInteraction {
 						+ " - " + tr.getCapolinea().getNome()).collect(Collectors.joining("\n"));
 				System.out.println(output);
 				int nt = selectNumero(sc, tratte.size());
-				sc.nextLine();
+
 				tratta = tratte.get(--nt);
 			}
 			String elenco = """
@@ -326,7 +326,7 @@ public class MezzieTratteInteraction extends ConsoleInteraction {
 					""";
 			System.out.println(elenco);
 			int num = selectNumero(sc, 2);
-			sc.nextLine();
+
 			MezzoDiTrasporto m;
 			switch (num) {
 			case 1:
@@ -342,7 +342,7 @@ public class MezzieTratteInteraction extends ConsoleInteraction {
 			default:
 				m = null;
 			}
-			sc.nextLine();
+
 			MezziDAO dao = new MezziDAO(em);
 			dao.save(m);
 			System.out.println("Mezzo salvato correttamente." + m);
@@ -360,7 +360,7 @@ public class MezzieTratteInteraction extends ConsoleInteraction {
 				.collect(Collectors.joining("\n"));
 		System.out.println(output);
 		int input = selectNumero(sc, lista.size());
-		sc.nextLine();
+
 		MezzoDiTrasporto m = lista.get(--input);
 		MezziDAO dao = new MezziDAO(em);
 		dao.delete(m);
@@ -375,7 +375,7 @@ public class MezzieTratteInteraction extends ConsoleInteraction {
 				""";
 		System.out.println(output);
 		int num = selectNumero(sc, 2);
-		sc.nextLine();
+
 		switch (num) {
 		case 1:
 			aggiungiServ();
@@ -397,7 +397,7 @@ public class MezzieTratteInteraction extends ConsoleInteraction {
 				.collect(Collectors.joining("\n"));
 		System.out.println(output2);
 		int input = selectNumero(sc, lista.size());
-		sc.nextLine();
+
 		MezzoDiTrasporto m = lista.get(--input);
 		return m;
 	}
@@ -411,7 +411,7 @@ public class MezzieTratteInteraction extends ConsoleInteraction {
 		System.out.println("Seleziona servizio");
 		System.out.println(output);
 		int num = selectNumero(sc, lista.size());
-		sc.nextLine();
+
 		Servizio s = lista.get(--num);
 		MezziDAO dao = new MezziDAO(em);
 		dao.delete(s);
@@ -434,7 +434,7 @@ public class MezzieTratteInteraction extends ConsoleInteraction {
 				""";
 		System.out.println(output);
 		int num = selectNumero(sc, 2);
-		sc.nextLine();
+
 		Servizio s;
 		switch (num) {
 		case 1:
